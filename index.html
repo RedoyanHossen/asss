@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innova | Fueling the Future of Ideas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900">
+
+    <!-- Navigation Bar -->
+    <header class="glass-nav sticky top-0 w-full z-50 transition-all duration-300">
+        <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M9 11L12 8L15 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="text-xl font-bold tracking-tight">Innova</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-sm font-medium hover:text-blue-600 transition-colors">Home</a>
+                <a href="#about" class="text-sm font-medium hover:text-blue-600 transition-colors">About Innovation</a>
+                <a href="#involved" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all shadow-md">Get Involved</a>
+            </div>
+
+            <!-- Mobile Menu Icon (Visual Only) -->
+            <div class="md:hidden">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-20 pb-16 lg:pt-32 lg:pb-24 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+            <div class="flex-1 text-center lg:text-left">
+                <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-6">
+                    Turning Bold <span class="gradient-text">Ideas</span> into Reality
+                </h1>
+                <p class="text-lg text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    Innovation is more than just a buzzword; it is the vital spark that transforms problems into possibilities. 
+                    By challenging the status quo, we create meaningful change that drives humanity forward. 
+                    Discover how one simple idea can reshape the world around us.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                    <a href="#about" class="px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg text-center">
+                        Learn More
+                    </a>
+                    <a href="#involved" class="px-8 py-4 border-2 border-slate-200 rounded-xl font-bold hover:border-blue-600 hover:text-blue-600 transition-all text-center">
+                        Join the Movement
+                    </a>
+                </div>
+            </div>
+            <div class="flex-1 relative w-full max-w-md lg:max-w-none">
+                <!-- Abstract Innovation Graphic -->
+                <div class="relative z-10 animate-pulse">
+                    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto drop-shadow-2xl">
+                        <defs>
+                            <linearGradient id="bulbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#fef08a;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="200" cy="200" r="180" fill="#eff6ff" />
+                        <!-- Simplified Lightbulb -->
+                        <path d="M200 80C140 80 110 130 110 180C110 215 130 240 150 255L150 300H250L250 255C270 240 290 215 290 180C290 130 260 80 200 80Z" fill="url(#bulbGrad)" />
+                        <rect x="160" y="310" width="80" height="10" rx="5" fill="#94a3b8" />
+                        <rect x="170" y="325" width="60" height="10" rx="5" fill="#94a3b8" />
+                        <!-- "Light" rays -->
+                        <line x1="200" y1="40" x2="200" y2="60" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
+                        <line x1="280" y1="80" x2="265" y2="95" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
+                        <line x1="320" y1="180" x2="300" y2="180" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
+                        <line x1="80" y1="180" x2="100" y2="180" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
+                        <line x1="120" y1="80" x2="135" y2="95" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <!-- Decorative background elements -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-200 rounded-full blur-3xl opacity-30"></div>
+                <div class="absolute bottom-10 right-10 w-48 h-48 bg-emerald-200 rounded-full blur-3xl opacity-30"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Innovation Section -->
+    <section id="about" class="py-24 bg-slate-50 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-5xl font-bold mb-4">What is Innovation?</h2>
+                <div class="h-1.5 w-24 bg-blue-600 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Section: Definition -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="text-blue-600" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">The Definition</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Innovation is the process of translating an idea or invention into a good or service that creates value or for which customers will pay.
+                    </p>
+                </div>
+
+                <!-- Section: Why It Matters -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="text-emerald-600" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Why It Matters</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        It drives growth, solves global challenges like climate change, and improves the overall quality of human life across the globe.
+                    </p>
+                </div>
+
+                <!-- Section: The Process -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="text-yellow-600" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">The Process</h3>
+                    <p class="text-slate-600 leading-relaxed">
+                        Innovation starts with curiosity, moves through experimentation, and finds success through persistence and rapid prototyping.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section id="involved" class="py-24 px-6">
+        <div class="max-w-4xl mx-auto bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-10 lg:p-20 text-center text-white shadow-2xl relative overflow-hidden">
+            <!-- Decorative circle -->
+            <div class="absolute -top-24 -left-24 w-64 h-64 bg-white opacity-10 rounded-full"></div>
+            
+            <h2 class="text-3xl lg:text-5xl font-bold mb-6 relative z-10">Ready to Start Something New?</h2>
+            <p class="text-blue-100 text-lg mb-10 relative z-10 max-w-xl mx-auto">
+                Join our community of thinkers, dreamers, and doers. Subscribe to our newsletter to receive weekly inspiration on how to innovate in your daily life.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+                <input type="email" placeholder="Enter your email" class="w-full sm:w-80 px-6 py-4 rounded-xl text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-400">
+                <button class="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg" onclick="handleSubscribe()">
+                    Subscribe Now
+                </button>
+            </div>
+            
+            <p class="mt-6 text-sm text-blue-200 opacity-80 relative z-10">
+                Join 50,000+ innovators worldwide.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-100 text-center px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span class="text-lg font-bold">Innova</span>
+            </div>
+            <p class="text-slate-500 text-sm">
+                &copy; 2024 Innova Hub. All rights reserved. <br class="sm:hidden">
+                Empowering the next generation of creative thinkers.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Simple Feedback Component (Replacing Alert) -->
+    <div id="feedback-toast" class="fixed bottom-10 right-10 transform translate-y-32 transition-transform duration-300 bg-slate-900 text-white px-6 py-3 rounded-lg shadow-2xl flex items-center space-x-3 pointer-events-none">
+        <svg class="text-emerald-400" width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span>Thanks for joining!</span>
+    </div>
+
+    <script>
+        function handleSubscribe() {
+            const toast = document.getElementById('feedback-toast');
+            toast.classList.remove('translate-y-32');
+            toast.classList.add('translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0');
+                toast.classList.add('translate-y-32');
+            }, 3000);
+        }
+
+        // Add shadow to nav on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+
+</body>
+</html>
