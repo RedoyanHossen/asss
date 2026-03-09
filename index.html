@@ -1,218 +1,276 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Innova | Fueling the Future of Ideas</title>
+    <title>Real-Time AI Object Scanner</title>
+    
+    <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- TensorFlow.js Core -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <!-- TensorFlow.js COCO-SSD Model -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .gradient-text {
-            background: linear-gradient(90deg, #3b82f6, #10b981);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.85);
+        /* Custom scrollbar and minor tweaks */
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body class="bg-white text-slate-900">
+<body class="bg-gray-950 text-white h-[100dvh] flex flex-col overflow-hidden">
 
-    <!-- Navigation Bar -->
-    <header class="glass-nav sticky top-0 w-full z-50 transition-all duration-300">
-        <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
-                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
-                    <path d="M12 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M9 11L12 8L15 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Header -->
+    <header class="bg-gray-900 border-b border-gray-800 p-4 shadow-md z-10">
+        <div class="container mx-auto max-w-4xl flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span class="text-xl font-bold tracking-tight">Innova</span>
+                <h1 class="text-xl md:text-2xl font-bold tracking-wide">Vision<span class="text-cyan-400">Scan</span></h1>
             </div>
-            
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#home" class="text-sm font-medium hover:text-blue-600 transition-colors">Home</a>
-                <a href="#about" class="text-sm font-medium hover:text-blue-600 transition-colors">About Innovation</a>
-                <a href="#involved" class="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all shadow-md">Get Involved</a>
+            <div id="statusBadge" class="hidden items-center gap-2 px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-sm font-medium border border-yellow-500/30">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-yellow-500"></span>
+                </span>
+                Model Loading...
             </div>
-
-            <!-- Mobile Menu Icon (Visual Only) -->
-            <div class="md:hidden">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative pt-20 pb-16 lg:pt-32 lg:pb-24 px-6 overflow-hidden">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
-            <div class="flex-1 text-center lg:text-left">
-                <h1 class="text-5xl lg:text-7xl font-bold leading-tight mb-6">
-                    Turning Bold <span class="gradient-text">Ideas</span> into Reality
-                </h1>
-                <p class="text-lg text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                    Innovation is more than just a buzzword; it is the vital spark that transforms problems into possibilities. 
-                    By challenging the status quo, we create meaningful change that drives humanity forward. 
-                    Discover how one simple idea can reshape the world around us.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                    <a href="#about" class="px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg text-center">
-                        Learn More
-                    </a>
-                    <a href="#involved" class="px-8 py-4 border-2 border-slate-200 rounded-xl font-bold hover:border-blue-600 hover:text-blue-600 transition-all text-center">
-                        Join the Movement
-                    </a>
-                </div>
-            </div>
-            <div class="flex-1 relative w-full max-w-md lg:max-w-none">
-                <!-- Abstract Innovation Graphic -->
-                <div class="relative z-10 animate-pulse">
-                    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto drop-shadow-2xl">
-                        <defs>
-                            <linearGradient id="bulbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#fef08a;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <circle cx="200" cy="200" r="180" fill="#eff6ff" />
-                        <!-- Simplified Lightbulb -->
-                        <path d="M200 80C140 80 110 130 110 180C110 215 130 240 150 255L150 300H250L250 255C270 240 290 215 290 180C290 130 260 80 200 80Z" fill="url(#bulbGrad)" />
-                        <rect x="160" y="310" width="80" height="10" rx="5" fill="#94a3b8" />
-                        <rect x="170" y="325" width="60" height="10" rx="5" fill="#94a3b8" />
-                        <!-- "Light" rays -->
-                        <line x1="200" y1="40" x2="200" y2="60" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
-                        <line x1="280" y1="80" x2="265" y2="95" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
-                        <line x1="320" y1="180" x2="300" y2="180" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
-                        <line x1="80" y1="180" x2="100" y2="180" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
-                        <line x1="120" y1="80" x2="135" y2="95" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
-                    </svg>
-                </div>
-                <!-- Decorative background elements -->
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-200 rounded-full blur-3xl opacity-30"></div>
-                <div class="absolute bottom-10 right-10 w-48 h-48 bg-emerald-200 rounded-full blur-3xl opacity-30"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Innovation Section -->
-    <section id="about" class="py-24 bg-slate-50 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl lg:text-5xl font-bold mb-4">What is Innovation?</h2>
-                <div class="h-1.5 w-24 bg-blue-600 mx-auto rounded-full"></div>
-            </div>
+    <!-- Main Content -->
+    <main class="flex-grow w-full flex flex-col relative bg-black">
+        
+        <!-- Camera Container (Edge-to-edge on mobile) -->
+        <div class="relative w-full flex-grow overflow-hidden flex items-center justify-center">
             
-            <div class="grid md:grid-cols-3 gap-12">
-                <!-- Section: Definition -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
-                        <svg class="text-blue-600" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">The Definition</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        Innovation is the process of translating an idea or invention into a good or service that creates value or for which customers will pay.
-                    </p>
-                </div>
-
-                <!-- Section: Why It Matters -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
-                        <svg class="text-emerald-600" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">Why It Matters</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        It drives growth, solves global challenges like climate change, and improves the overall quality of human life across the globe.
-                    </p>
-                </div>
-
-                <!-- Section: The Process -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-                    <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-6">
-                        <svg class="text-yellow-600" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9.663 17h4.674M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4">The Process</h3>
-                    <p class="text-slate-600 leading-relaxed">
-                        Innovation starts with curiosity, moves through experimentation, and finds success through persistence and rapid prototyping.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action Section -->
-    <section id="involved" class="py-24 px-6">
-        <div class="max-w-4xl mx-auto bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-10 lg:p-20 text-center text-white shadow-2xl relative overflow-hidden">
-            <!-- Decorative circle -->
-            <div class="absolute -top-24 -left-24 w-64 h-64 bg-white opacity-10 rounded-full"></div>
+            <!-- Video Feed -->
+            <video id="webcam" autoplay playsinline muted class="absolute inset-0 w-full h-full object-cover hidden"></video>
             
-            <h2 class="text-3xl lg:text-5xl font-bold mb-6 relative z-10">Ready to Start Something New?</h2>
-            <p class="text-blue-100 text-lg mb-10 relative z-10 max-w-xl mx-auto">
-                Join our community of thinkers, dreamers, and doers. Subscribe to our newsletter to receive weekly inspiration on how to innovate in your daily life.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-                <input type="email" placeholder="Enter your email" class="w-full sm:w-80 px-6 py-4 rounded-xl text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-400">
-                <button class="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-300 text-blue-900 px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg" onclick="handleSubscribe()">
-                    Subscribe Now
-                </button>
-            </div>
-            
-            <p class="mt-6 text-sm text-blue-200 opacity-80 relative z-10">
-                Join 50,000+ innovators worldwide.
-            </p>
-        </div>
-    </section>
+            <!-- Canvas Overlay for Bounding Boxes -->
+            <canvas id="canvas" class="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none"></canvas>
 
-    <!-- Footer -->
-    <footer class="py-12 border-t border-slate-100 text-center px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex items-center justify-center space-x-2 mb-4">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-600">
-                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"/>
+            <!-- Placeholder / Instructions -->
+            <div id="placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 p-8 text-center z-0 bg-gray-950">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 mb-6 opacity-40 text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span class="text-lg font-bold">Innova</span>
+                <p class="text-lg md:text-xl max-w-md font-light">Ready to scan. Grant camera access and tap <strong class="text-white font-semibold">Start</strong> below.</p>
             </div>
-            <p class="text-slate-500 text-sm">
-                &copy; 2024 Innova Hub. All rights reserved. <br class="sm:hidden">
-                Empowering the next generation of creative thinkers.
-            </p>
         </div>
-    </footer>
 
-    <!-- Simple Feedback Component (Replacing Alert) -->
-    <div id="feedback-toast" class="fixed bottom-10 right-10 transform translate-y-32 transition-transform duration-300 bg-slate-900 text-white px-6 py-3 rounded-lg shadow-2xl flex items-center space-x-3 pointer-events-none">
-        <svg class="text-emerald-400" width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-        <span>Thanks for joining!</span>
-    </div>
-
-    <script>
-        function handleSubscribe() {
-            const toast = document.getElementById('feedback-toast');
-            toast.classList.remove('translate-y-32');
-            toast.classList.add('translate-y-0');
+        <!-- Controls (Bottom Sheet Style) -->
+        <div class="w-full bg-gray-900/95 backdrop-blur-xl border-t border-gray-800 p-6 pb-8 z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] flex flex-col gap-4 items-center rounded-t-3xl md:rounded-none">
+            <div class="w-12 h-1.5 bg-gray-700 rounded-full mb-2 md:hidden"></div>
             
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0');
-                toast.classList.add('translate-y-32');
-            }, 3000);
+            <div class="flex flex-col md:flex-row gap-4 w-full max-w-2xl justify-between items-center text-center md:text-left">
+                <div>
+                    <h2 class="text-lg font-bold text-gray-100 tracking-wide">Scanner Controls</h2>
+                    <p class="text-sm text-gray-400">Powered by TensorFlow.js</p>
+                </div>
+                
+                <div class="flex gap-3 w-full md:w-auto mt-2 md:mt-0">
+                    <button id="startBtn" disabled class="flex-1 md:flex-none px-8 py-4 bg-cyan-600 hover:bg-cyan-500 disabled:bg-gray-800 disabled:text-gray-500 disabled:cursor-not-allowed text-white font-bold text-lg rounded-2xl shadow-lg shadow-cyan-900/50 transition-all duration-200 flex justify-center items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                        </svg>
+                        Start
+                    </button>
+                    <button id="stopBtn" class="hidden flex-1 md:flex-none px-8 py-4 bg-red-600 hover:bg-red-500 text-white font-bold text-lg rounded-2xl shadow-lg shadow-red-900/50 transition-all duration-200 flex justify-center items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
+                        </svg>
+                        Stop
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Application Logic -->
+    <script>
+        // DOM Elements
+        const video = document.getElementById('webcam');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const placeholder = document.getElementById('placeholder');
+        const statusBadge = document.getElementById('statusBadge');
+
+        // App State
+        let model = null;
+        let isScanning = false;
+        let animationId = null;
+        let stream = null;
+
+        // Initialize the app by loading the model
+        async function init() {
+            statusBadge.classList.remove('hidden');
+            statusBadge.classList.add('flex');
+            
+            try {
+                // Load the COCO-SSD model from TensorFlow.js
+                model = await cocoSsd.load();
+                
+                // Update UI once loaded
+                statusBadge.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    Model Ready
+                `;
+                statusBadge.classList.replace('bg-yellow-500/20', 'bg-green-500/20');
+                statusBadge.classList.replace('text-yellow-400', 'text-green-400');
+                statusBadge.classList.replace('border-yellow-500/30', 'border-green-500/30');
+                
+                // Enable start button
+                startBtn.disabled = false;
+            } catch (error) {
+                console.error("Error loading model:", error);
+                statusBadge.innerHTML = `Error Loading Model`;
+                statusBadge.classList.replace('bg-yellow-500/20', 'bg-red-500/20');
+                statusBadge.classList.replace('text-yellow-400', 'text-red-400');
+            }
         }
 
-        // Add shadow to nav on scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 20) {
-                header.classList.add('shadow-md');
-            } else {
-                header.classList.remove('shadow-md');
+        // Setup the webcam stream
+        async function setupCamera() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                throw new Error("Camera API is not supported in this browser.");
+            }
+
+            // Prefer the back-facing camera on mobile devices
+            const constraints = {
+                video: { facingMode: 'environment' },
+                audio: false
+            };
+
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            video.srcObject = stream;
+
+            return new Promise((resolve) => {
+                video.onloadedmetadata = () => {
+                    resolve(video);
+                };
+            });
+        }
+
+        // The main detection loop
+        async function detectFrame() {
+            if (!isScanning) return;
+
+            // Ensure canvas matches the video dimensions exactly
+            if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+            }
+
+            // Run object detection on the current video frame
+            const predictions = await model.detect(video);
+
+            // Clear previous drawings
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw new predictions
+            predictions.forEach(prediction => {
+                // prediction object contains: [x, y, width, height], class, and score
+                const [x, y, width, height] = prediction.bbox;
+                const score = Math.round(prediction.score * 100);
+                const text = `${prediction.class.toUpperCase()} - ${score}%`;
+
+                // 1. Draw Bounding Box
+                ctx.strokeStyle = '#06b6d4'; // Tailwind cyan-500
+                ctx.lineWidth = 4;
+                ctx.strokeRect(x, y, width, height);
+
+                // 2. Draw Label Background
+                ctx.font = 'bold 16px Inter, sans-serif';
+                const textWidth = ctx.measureText(text).width;
+                ctx.fillStyle = '#06b6d4';
+                // Draw background slightly inside the top-left of the box
+                ctx.fillRect(x, y, textWidth + 16, 30);
+
+                // 3. Draw Label Text
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(text, x + 8, y + 21);
+            });
+
+            // Loop recursively using requestAnimationFrame for smooth drawing
+            animationId = requestAnimationFrame(detectFrame);
+        }
+
+        // Start scanning event
+        startBtn.addEventListener('click', async () => {
+            try {
+                // Disable button during startup
+                startBtn.disabled = true;
+                startBtn.innerHTML = `
+                    <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    Starting...
+                `;
+
+                await setupCamera();
+                video.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                
+                // Toggle buttons
+                startBtn.classList.add('hidden');
+                stopBtn.classList.remove('hidden');
+                
+                isScanning = true;
+                detectFrame(); // Start the loop
+
+            } catch (err) {
+                alert('Could not access camera. Please ensure permissions are granted.');
+                console.error(err);
+                startBtn.disabled = false;
+                startBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                    </svg>
+                    Start
+                `;
             }
         });
-    </script>
 
+        // Stop scanning event
+        stopBtn.addEventListener('click', () => {
+            isScanning = false;
+            if (animationId) cancelAnimationFrame(animationId);
+            
+            // Stop the camera tracks
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+
+            // Update UI
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            video.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            
+            stopBtn.classList.add('hidden');
+            startBtn.classList.remove('hidden');
+            startBtn.disabled = false;
+            startBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+                Start
+            `;
+        });
+
+        // Boot up the application
+        init();
+
+    </script>
 </body>
 </html>
