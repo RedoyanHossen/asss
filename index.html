@@ -24,6 +24,16 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
         
+        /* Range slider styling */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: #06b6d4;
+            cursor: pointer;
+        }
+        
         /* Notun scan animation */
         @keyframes scan-line {
             0% { top: 0%; opacity: 0; }
@@ -50,42 +60,59 @@
         }
     </style>
 </head>
-<body class="bg-gray-950 text-white h-[100dvh] flex flex-col overflow-hidden selection:bg-cyan-500/30">
+<body class="bg-gray-950 text-white h-[100dvh] flex flex-col overflow-hidden selection:bg-cyan-500/30 relative">
 
     <!-- Header -->
-    <header class="bg-gray-950/80 backdrop-blur-md border-b border-white/5 p-4 shadow-lg z-30 absolute top-0 w-full">
-        <div class="container mx-auto max-w-5xl flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl shadow-lg shadow-cyan-500/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                </div>
-                <h1 class="text-xl md:text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">Vision<span class="text-cyan-400">Scan</span></h1>
+    <header class="bg-gray-950/80 backdrop-blur-md border-b border-white/5 p-4 shadow-lg z-30 absolute top-0 w-full flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl shadow-lg shadow-cyan-500/20">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
             </div>
+            <h1 class="text-xl md:text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">Vision<span class="text-cyan-400">Scan</span></h1>
+        </div>
+        
+        <div class="flex items-center gap-3">
             <div id="statusBadge" class="hidden items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 text-yellow-400 text-xs md:text-sm font-semibold border border-yellow-500/20">
                 <span class="relative flex h-2.5 w-2.5">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
                   <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-yellow-500"></span>
                 </span>
-                AI Loading...
+                <span class="hidden md:inline">AI Loading...</span>
             </div>
+            
+            <!-- Inventory Button (Notun) -->
+            <button id="openInventoryBtn" class="hidden p-2 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                </svg>
+            </button>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-grow w-full flex flex-col relative bg-black pt-16">
+    <main class="flex-grow w-full flex flex-col relative bg-black pt-[72px]">
         
-        <!-- Live Stats Overlay (Notun) -->
-        <div id="statsOverlay" class="hidden absolute top-20 left-4 z-20 flex flex-col gap-2 pointer-events-none">
-            <div class="glass-panel px-3 py-1.5 rounded-lg text-xs font-mono text-cyan-300 flex items-center gap-2">
+        <!-- Live Stats & Controls Overlay (Notun features jukto kora hoyeche) -->
+        <div id="statsOverlay" class="hidden absolute top-24 left-4 z-20 flex flex-col gap-2 pointer-events-none">
+            <div class="glass-panel px-3 py-1.5 rounded-lg text-xs font-mono text-cyan-300 flex items-center gap-2 w-max">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 <span id="fpsCounter">FPS: 0</span>
             </div>
-            <div class="glass-panel px-3 py-1.5 rounded-lg text-xs font-mono text-emerald-400 flex items-center gap-2">
+            <div class="glass-panel px-3 py-1.5 rounded-lg text-xs font-mono text-emerald-400 flex items-center gap-2 w-max">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
                 <span id="itemCount">Items: 0</span>
+            </div>
+            
+            <!-- Accuracy / Confidence Slider (Notun) -->
+            <div class="glass-panel px-3 py-2 rounded-lg mt-1 flex flex-col gap-1 w-32 pointer-events-auto">
+                <div class="flex justify-between text-[10px] font-mono text-gray-400 uppercase tracking-wider">
+                    <span>Accuracy</span>
+                    <span id="confValue">50%</span>
+                </div>
+                <input type="range" id="confSlider" min="20" max="90" value="50" class="w-full h-1 bg-gray-700 rounded-lg appearance-none outline-none">
             </div>
         </div>
 
@@ -101,7 +128,7 @@
             <!-- Scanner Laser Effect -->
             <div id="scannerLaser" class="hidden absolute left-0 w-full h-[1px] bg-cyan-400 shadow-[0_0_20px_5px_rgba(6,182,212,0.5)] z-10 animate-scan"></div>
 
-            <!-- Focus Reticle (Notun Smart UI) -->
+            <!-- Focus Reticle -->
             <div id="focusReticle" class="hidden absolute w-64 h-64 z-10 pointer-events-none">
                 <div class="reticle-corner top-0 left-0 border-t-2 border-l-2 rounded-tl-xl"></div>
                 <div class="reticle-corner top-0 right-0 border-t-2 border-r-2 rounded-tr-xl"></div>
@@ -121,18 +148,24 @@
             </div>
         </div>
 
-        <!-- Floating Controls Dock (Notun Smart UI) -->
+        <!-- Floating Controls Dock -->
         <div class="fixed bottom-6 left-0 w-full px-4 z-40 flex justify-center pointer-events-none">
             <div class="glass-panel w-full max-w-md rounded-[2rem] p-3 flex gap-2 justify-between items-center pointer-events-auto">
                 
                 <!-- Auxiliary Buttons -->
-                <div class="flex gap-2">
-                    <button id="switchCamBtn" class="w-12 h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 active:scale-95 text-white rounded-full transition-all duration-200" title="Flip Camera">
+                <div class="flex gap-1.5 md:gap-2">
+                    <button id="switchCamBtn" class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 active:scale-95 text-white rounded-full transition-all duration-200" title="Flip Camera">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                         </svg>
                     </button>
-                    <button id="voiceToggleBtn" class="w-12 h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 active:scale-95 text-gray-400 rounded-full transition-all duration-200 relative" title="Voice Assistant">
+                    <!-- Torch Button (Notun) -->
+                    <button id="torchBtn" class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 active:scale-95 text-gray-400 rounded-full transition-all duration-200 relative" title="Toggle Flashlight">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </button>
+                    <button id="voiceToggleBtn" class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white/5 hover:bg-white/10 active:scale-95 text-gray-400 rounded-full transition-all duration-200 relative" title="Voice Assistant">
                         <svg id="voiceIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" clip-rule="evenodd" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
@@ -142,21 +175,20 @@
                 
                 <!-- Main Action Buttons -->
                 <div class="flex-grow flex justify-end gap-2">
-                    <!-- Capture Snapshot (Notun Feature) -->
-                    <button id="captureBtn" class="hidden w-12 h-12 items-center justify-center bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 active:scale-95 rounded-full transition-all duration-200" title="Take Snapshot">
+                    <button id="captureBtn" class="hidden w-10 h-10 md:w-12 md:h-12 items-center justify-center bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 active:scale-95 rounded-full transition-all duration-200" title="Take Snapshot">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                             <circle cx="12" cy="13" r="4" stroke="currentColor" stroke-width="2"/>
                         </svg>
                     </button>
 
-                    <button id="startBtn" disabled class="flex-grow md:flex-none px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:from-gray-800 disabled:to-gray-800 disabled:text-gray-500 text-white font-bold rounded-2xl shadow-lg shadow-cyan-900/50 transition-all duration-200 flex justify-center items-center gap-2 active:scale-95">
+                    <button id="startBtn" disabled class="flex-grow md:flex-none px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:from-gray-800 disabled:to-gray-800 disabled:text-gray-500 text-white font-bold rounded-2xl shadow-lg shadow-cyan-900/50 transition-all duration-200 flex justify-center items-center gap-2 active:scale-95 text-sm md:text-base">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                         </svg>
                         Start Scan
                     </button>
-                    <button id="stopBtn" class="hidden flex-grow md:flex-none px-6 py-3 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold rounded-2xl shadow-lg shadow-red-900/50 transition-all duration-200 flex justify-center items-center gap-2 active:scale-95">
+                    <button id="stopBtn" class="hidden flex-grow md:flex-none px-4 md:px-6 py-2 md:py-3 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold rounded-2xl shadow-lg shadow-red-900/50 transition-all duration-200 flex justify-center items-center gap-2 active:scale-95 text-sm md:text-base">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
                         </svg>
@@ -165,6 +197,25 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Inventory Slide Panel (Notun) -->
+        <div id="inventoryPanel" class="fixed inset-y-0 right-0 w-64 md:w-80 bg-gray-950/95 backdrop-blur-2xl border-l border-white/10 p-5 transform translate-x-full transition-transform duration-300 z-50 flex flex-col shadow-2xl pt-24">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                    Scan History
+                </h2>
+                <button id="closeInventoryBtn" class="text-gray-400 hover:text-white bg-white/5 p-1.5 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            
+            <!-- List -->
+            <ul id="inventoryList" class="flex-1 overflow-y-auto flex flex-col gap-2 pr-1 custom-scrollbar">
+                <li class="text-center text-gray-500 text-sm mt-10">Kono kicu detect kora hoyni ekhono.</li>
+            </ul>
+        </div>
+
     </main>
 
     <!-- Application Logic -->
@@ -187,6 +238,15 @@
         const voiceToggleBtn = document.getElementById('voiceToggleBtn');
         const voiceIcon = document.getElementById('voiceIcon');
         const scannerLaser = document.getElementById('scannerLaser');
+        
+        // Notun Features DOM
+        const torchBtn = document.getElementById('torchBtn');
+        const confSlider = document.getElementById('confSlider');
+        const confValue = document.getElementById('confValue');
+        const openInventoryBtn = document.getElementById('openInventoryBtn');
+        const closeInventoryBtn = document.getElementById('closeInventoryBtn');
+        const inventoryPanel = document.getElementById('inventoryPanel');
+        const inventoryList = document.getElementById('inventoryList');
 
         // App State
         let model = null;
@@ -197,13 +257,60 @@
         // Smart Features State
         let facingMode = 'environment';
         let voiceEnabled = false;
+        let isTorchOn = false;
+        let minConfidence = 0.5; // 50% slider value
+        
         let spokenItems = new Set();
+        let itemMaxScores = {}; // Holds { "person": 98, "laptop": 85 }
         let totalUniqueItems = new Set();
+        
         let lastFrameTime = performance.now();
         let frameCount = 0;
         
-        // Clear history periodically so voice repeats after a while
+        // Clear voice history periodically
         setInterval(() => spokenItems.clear(), 8000);
+
+        // Confidence Slider Event
+        confSlider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            confValue.innerText = `${val}%`;
+            minConfidence = parseInt(val) / 100;
+        });
+
+        // Inventory Panel Toggle
+        openInventoryBtn.addEventListener('click', () => {
+            inventoryPanel.classList.remove('translate-x-full');
+        });
+        closeInventoryBtn.addEventListener('click', () => {
+            inventoryPanel.classList.add('translate-x-full');
+        });
+
+        // Torch Control Feature
+        torchBtn.addEventListener('click', async () => {
+            if (!stream) return;
+            try {
+                const track = stream.getVideoTracks()[0];
+                const capabilities = track.getCapabilities();
+                
+                if (capabilities.torch) {
+                    isTorchOn = !isTorchOn;
+                    await track.applyConstraints({ advanced: [{ torch: isTorchOn }] });
+                    
+                    if (isTorchOn) {
+                        torchBtn.classList.replace('text-gray-400', 'text-yellow-400');
+                        torchBtn.classList.replace('bg-white/5', 'bg-yellow-500/20');
+                    } else {
+                        torchBtn.classList.replace('text-yellow-400', 'text-gray-400');
+                        torchBtn.classList.replace('bg-yellow-500/20', 'bg-white/5');
+                    }
+                } else {
+                    alert('Torch unsupported / Front camera active.');
+                }
+            } catch (e) {
+                console.warn('Torch not supported', e);
+                alert('Device evabe torch support korche na.');
+            }
+        });
 
         // Initialize the app
         async function init() {
@@ -212,13 +319,13 @@
             
             try {
                 // Load model
-                model = await cocoSsd.load({ base: 'lite_mobilenet_v2' }); // Using lite model for better mobile speed
+                model = await cocoSsd.load({ base: 'lite_mobilenet_v2' });
                 
                 statusBadge.innerHTML = `
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                     </svg>
-                    AI Ready
+                    <span class="hidden md:inline">AI Ready</span>
                 `;
                 statusBadge.classList.replace('bg-yellow-500/10', 'bg-green-500/10');
                 statusBadge.classList.replace('text-yellow-400', 'text-green-400');
@@ -227,7 +334,7 @@
                 startBtn.disabled = false;
             } catch (error) {
                 console.error("Error loading model:", error);
-                statusBadge.innerHTML = `Error Loading AI`;
+                statusBadge.innerHTML = `Error`;
                 statusBadge.classList.replace('bg-yellow-500/10', 'bg-red-500/10');
                 statusBadge.classList.replace('text-yellow-400', 'text-red-400');
             }
@@ -247,9 +354,36 @@
 
             stream = await navigator.mediaDevices.getUserMedia(constraints);
             video.srcObject = stream;
+            
+            // Reset torch state on camera switch
+            isTorchOn = false;
+            torchBtn.classList.replace('text-yellow-400', 'text-gray-400');
+            torchBtn.classList.replace('bg-yellow-500/20', 'bg-white/5');
 
             return new Promise((resolve) => {
                 video.onloadedmetadata = () => resolve(video);
+            });
+        }
+
+        // Update Inventory UI
+        function updateInventoryList() {
+            if(Object.keys(itemMaxScores).length === 0) return;
+            
+            inventoryList.innerHTML = '';
+            // Sort items by score descending
+            const sortedItems = Object.entries(itemMaxScores).sort((a, b) => b[1] - a[1]);
+            
+            sortedItems.forEach(([name, score]) => {
+                const li = document.createElement('li');
+                li.className = "flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/5";
+                li.innerHTML = `
+                    <span class="capitalize text-white font-medium flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                        ${name}
+                    </span>
+                    <span class="text-xs font-mono bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-md border border-cyan-500/30">${score}%</span>
+                `;
+                inventoryList.appendChild(li);
             });
         }
 
@@ -274,76 +408,78 @@
             // Detect objects
             const predictions = await model.detect(video);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Filter by our Slider Confidence
+            const validPredictions = predictions.filter(p => p.score >= minConfidence);
 
-            // UI Feedback if objects found
-            if (predictions.length > 0) {
+            if (validPredictions.length > 0) {
                 focusReticle.classList.add('is-detecting');
             } else {
                 focusReticle.classList.remove('is-detecting');
             }
 
-            predictions.forEach(prediction => {
+            validPredictions.forEach(prediction => {
                 const [x, y, width, height] = prediction.bbox;
                 const score = Math.round(prediction.score * 100);
                 const className = prediction.class.toLowerCase();
                 const text = `${className.toUpperCase()} ${score}%`;
 
-                // Smart Feature: Haptic Feedback for new unique items
+                // Smart Feature: Track items and max scores for Inventory
+                if (!itemMaxScores[className] || score > itemMaxScores[className]) {
+                    itemMaxScores[className] = score;
+                    updateInventoryList(); // Update UI list
+                }
+
                 if (!totalUniqueItems.has(className)) {
                     totalUniqueItems.add(className);
                     itemCount.innerText = `Items: ${totalUniqueItems.size}`;
-                    if (navigator.vibrate) navigator.vibrate(50); // Kepe uthbe
+                    if (navigator.vibrate) navigator.vibrate(50);
                 }
 
-                // Smart Feature: Voice Assistant
                 if (voiceEnabled && score > 60 && !spokenItems.has(className)) {
                     const msg = new SpeechSynthesisUtterance(prediction.class);
                     window.speechSynthesis.speak(msg);
                     spokenItems.add(className);
                 }
 
-                // Draw bounding box (Modern look)
+                // Draw bounding box
                 ctx.strokeStyle = '#06b6d4';
                 ctx.lineWidth = 3;
                 ctx.lineJoin = 'round';
                 
-                // Draw rounded rect manually or just use strokeRect with standard look
                 ctx.beginPath();
                 ctx.roundRect(x, y, width, height, 8);
                 ctx.stroke();
 
-                // Draw Label Background with Glassmorphism feel
+                // Draw Label Background
                 ctx.font = '600 14px Inter, sans-serif';
                 const textWidth = ctx.measureText(text).width;
                 
-                ctx.fillStyle = 'rgba(15, 23, 42, 0.8)'; // Dark semi-transparent
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
                 ctx.beginPath();
                 ctx.roundRect(x, y > 30 ? y - 30 : y, textWidth + 16, 26, 6);
                 ctx.fill();
                 
                 // Draw Label Text
-                ctx.fillStyle = '#22d3ee'; // Cyan text
+                ctx.fillStyle = '#22d3ee';
                 ctx.fillText(text, x + 8, y > 30 ? y - 12 : y + 18);
             });
 
             animationId = requestAnimationFrame(detectFrame);
         }
 
-        // Snapshot / Capture Feature
+        // Capture Feature
         captureBtn.addEventListener('click', () => {
-            // Flash effect
             const flash = document.createElement('div');
             flash.className = 'absolute inset-0 bg-white z-50 pointer-events-none transition-opacity duration-300';
             document.body.appendChild(flash);
             setTimeout(() => { flash.style.opacity = '0'; setTimeout(() => flash.remove(), 300); }, 50);
             
-            // Generate Image
             const tempCanvas = document.createElement('canvas');
             tempCanvas.width = canvas.width;
             tempCanvas.height = canvas.height;
             const tCtx = tempCanvas.getContext('2d');
             
-            // Mirror logic for front cam
             if (facingMode === 'user') {
                 tCtx.translate(tempCanvas.width, 0);
                 tCtx.scale(-1, 1);
@@ -351,17 +487,15 @@
             tCtx.drawImage(video, 0, 0, tempCanvas.width, tempCanvas.height);
             
             if (facingMode === 'user') {
-                tCtx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform for overlay
+                tCtx.setTransform(1, 0, 0, 1, 0, 0);
             }
-            tCtx.drawImage(canvas, 0, 0); // Draw boxes
+            tCtx.drawImage(canvas, 0, 0);
 
-            // Download
             const link = document.createElement('a');
             link.download = `VisionScan-${new Date().getTime()}.png`;
             link.href = tempCanvas.toDataURL('image/png');
             link.click();
             
-            // Haptic
             if (navigator.vibrate) navigator.vibrate([50, 50, 50]);
         });
 
@@ -415,6 +549,8 @@
                 focusReticle.classList.remove('hidden');
                 focusReticle.classList.add('flex');
                 statsOverlay.classList.remove('hidden');
+                openInventoryBtn.classList.remove('hidden');
+                openInventoryBtn.classList.add('flex');
                 
                 startBtn.classList.add('hidden');
                 stopBtn.classList.remove('hidden');
@@ -422,8 +558,12 @@
                 captureBtn.classList.add('flex');
                 
                 isScanning = true;
-                totalUniqueItems.clear(); // Reset count for new session
-                itemCount.innerText = "Items: 0";
+                
+                // Keep history intact if they just pause/play, or reset it. Let's keep it.
+                // totalUniqueItems.clear(); 
+                // itemMaxScores = {};
+                // updateInventoryList();
+                
                 detectFrame();
 
             } catch (err) {
@@ -439,6 +579,9 @@
             isScanning = false;
             if (animationId) cancelAnimationFrame(animationId);
             if (stream) stream.getTracks().forEach(track => track.stop());
+            
+            // Turn off torch when stopping
+            if (isTorchOn) torchBtn.click();
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             video.classList.add('hidden');
