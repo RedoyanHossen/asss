@@ -261,7 +261,7 @@
         let minConfidence = 0.5; // 50% slider value
         
         let spokenItems = new Set();
-        let itemMaxScores = {}; // Holds { "person": 98, "laptop": 85 }
+        let itemMaxScores = {}; // Ekhon time shohokaare store hobe: { "person": { score: 98, time: "10:30 AM", timestamp: 1234567 } }
         let totalUniqueItems = new Set();
         
         let lastFrameTime = performance.now();
@@ -370,18 +370,27 @@
             if(Object.keys(itemMaxScores).length === 0) return;
             
             inventoryList.innerHTML = '';
-            // Sort items by score descending
-            const sortedItems = Object.entries(itemMaxScores).sort((a, b) => b[1] - a[1]);
             
-            sortedItems.forEach(([name, score]) => {
+            // Notun detect kora jinish gulo upore rakhbar jonno timestamp diye sort kora holo
+            const sortedItems = Object.entries(itemMaxScores).sort((a, b) => b[1].timestamp - a[1].timestamp);
+            
+            sortedItems.forEach(([name, data]) => {
                 const li = document.createElement('li');
                 li.className = "flex justify-between items-center bg-white/5 p-3 rounded-xl border border-white/5";
+                
+                // Add kora time UI te dekhanor jonno format kora hocche
                 li.innerHTML = `
-                    <span class="capitalize text-white font-medium flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-                        ${name}
-                    </span>
-                    <span class="text-xs font-mono bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-md border border-cyan-500/30">${score}%</span>
+                    <div class="flex flex-col">
+                        <span class="capitalize text-white font-medium flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                            ${name}
+                        </span>
+                        <span class="text-[10px] text-gray-400 ml-4 mt-0.5 flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            ${data.time}
+                        </span>
+                    </div>
+                    <span class="text-xs font-mono bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-md border border-cyan-500/30" title="Max Confidence">${data.score}%</span>
                 `;
                 inventoryList.appendChild(li);
             });
@@ -424,10 +433,19 @@
                 const className = prediction.class.toLowerCase();
                 const text = `${className.toUpperCase()} ${score}%`;
 
-                // Smart Feature: Track items and max scores for Inventory
-                if (!itemMaxScores[className] || score > itemMaxScores[className]) {
-                    itemMaxScores[className] = score;
-                    updateInventoryList(); // Update UI list
+                // Smart Feature: Track items, max scores AND First Detection Time for Inventory
+                if (!itemMaxScores[className]) {
+                    // Prothom bar detect hole current time store korbo
+                    itemMaxScores[className] = {
+                        score: score,
+                        time: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true }),
+                        timestamp: Date.now()
+                    };
+                    updateInventoryList(); 
+                } else if (score > itemMaxScores[className].score) {
+                    // Jodio score bare, time agertai thakbe (karon eta history)
+                    itemMaxScores[className].score = score;
+                    updateInventoryList(); 
                 }
 
                 if (!totalUniqueItems.has(className)) {
