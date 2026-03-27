@@ -59,20 +59,13 @@
         }
     </script>
     <style>
-        /* Video element mirroring */
-        .mirror-video {
-            transform: scaleX(-1);
-        }
-        .unmirrored {
-            transform: scaleX(1) !important;
-        }
+        .mirror-video { transform: scaleX(-1); }
+        .unmirrored { transform: scaleX(1) !important; }
         #local-video {
             object-fit: cover;
             transform: scaleX(-1);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        /* Scrollbar Design */
         .hide-scroll::-webkit-scrollbar { display: none; }
         .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
         .custom-scroll::-webkit-scrollbar { width: 6px; }
@@ -83,7 +76,6 @@
         }
         .custom-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
         
-        /* Advanced Glassmorphism */
         .glass-panel {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(24px);
@@ -99,7 +91,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
-        /* Smooth Inputs */
         input:focus { outline: none; }
         .input-smart:focus-within {
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
@@ -107,28 +98,27 @@
             background: rgba(255,255,255,1);
         }
         
-        /* Chat bubbles */
-        .chat-bubble-me {
-            background: #4f46e5;
-            border-bottom-right-radius: 4px;
-        }
+        .chat-bubble-me { background: #4f46e5; border-bottom-right-radius: 4px; }
         .chat-bubble-them {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-bottom-left-radius: 4px;
         }
 
-        /* Tooltip Hack */
         .has-tooltip:hover .tooltip {
             opacity: 1;
             transform: translateY(0);
             visibility: visible;
         }
+        
+        /* Custom Toggle Switch */
+        .toggle-checkbox:checked { right: 0; border-color: #4f46e5; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #4f46e5; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans h-screen overflow-hidden selection:bg-indigo-200 overscroll-none antialiased">
 
-    <!-- Toast Notification (Dynamic Island Style) -->
+    <!-- Toast Notification -->
     <div id="toast" class="fixed top-safe pt-4 sm:top-6 w-[90%] sm:w-auto left-1/2 transform -translate-x-1/2 bg-gray-900/95 backdrop-blur-xl text-white px-4 py-3 sm:px-5 sm:py-3.5 rounded-full shadow-2xl z-[100] transition-all duration-400 opacity-0 pointer-events-none translate-y-[-20px] flex items-center gap-3 border border-white/10 max-w-max">
         <div class="bg-indigo-500 rounded-full w-6 h-6 flex items-center justify-center shrink-0">
             <i class="fas fa-bell text-xs text-white"></i>
@@ -152,14 +142,12 @@
             </button>
         </div>
 
-        <!-- Smart Ambient Background -->
         <div class="absolute top-0 left-1/4 w-[30rem] sm:w-[40rem] h-[30rem] sm:h-[40rem] bg-indigo-300/30 rounded-full mix-blend-multiply filter blur-[80px] sm:blur-[120px] opacity-70 animate-blob pointer-events-none"></div>
         <div class="absolute bottom-0 right-1/4 w-[25rem] sm:w-[35rem] h-[25rem] sm:h-[35rem] bg-purple-300/30 rounded-full mix-blend-multiply filter blur-[80px] sm:blur-[100px] opacity-70 animate-blob pointer-events-none" style="animation-delay: 2s;"></div>
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNlNGRlZWYiIGZpbGwtb3BhY2l0eT0iMC40Ii8+PC9zdmc+')] opacity-40 z-0 pointer-events-none"></div>
 
-        <!-- Left Content (Hero) -->
+        <!-- Left Content -->
         <div class="w-full lg:w-[55%] max-w-2xl flex flex-col justify-center items-center lg:items-start text-center lg:text-left z-10 animate-slide-up mt-4 sm:mt-0">
-            
             <div class="space-y-4 sm:space-y-5 px-2 sm:px-0 w-full">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-100/80 text-indigo-700 text-[10px] sm:text-xs font-bold tracking-wide border border-indigo-200 backdrop-blur-sm mx-auto lg:mx-0">
                     <span class="relative flex h-2 w-2">
@@ -176,9 +164,8 @@
                 </p>
             </div>
             
-            <!-- Interaction Block: Name Input & Meeting Actions -->
+            <!-- Interaction Block -->
             <div class="w-full max-w-xl mt-6 sm:mt-8 space-y-3 sm:space-y-4 px-2 sm:px-0 mx-auto lg:mx-0">
-                <!-- Smart Name Input -->
                 <div class="input-smart flex items-center bg-white/80 backdrop-blur-md rounded-xl sm:rounded-2xl border border-slate-200 p-1 sm:p-1.5 w-full shadow-sm transition-all group hover:bg-white">
                     <div class="pl-3 sm:pl-4 pr-2 text-slate-400 group-focus-within:text-indigo-500 transition-colors">
                         <i class="fas fa-user-circle text-lg sm:text-xl"></i>
@@ -186,7 +173,6 @@
                     <input type="text" id="user-name-input" data-i18n-placeholder="name_placeholder" placeholder="Enter your display name" class="bg-transparent border-none outline-none px-2 py-3 w-full text-slate-700 text-sm sm:text-base font-medium placeholder-slate-400">
                 </div>
 
-                <!-- Unified Action Area -->
                 <div class="flex flex-col sm:flex-row items-center gap-3 w-full">
                     <button onclick="createRoom()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl sm:rounded-2xl px-5 sm:px-7 py-3.5 sm:py-4 flex items-center justify-center gap-2.5 sm:gap-3 text-sm sm:text-base font-semibold shadow-xl shadow-indigo-600/20 transition-all active:scale-95 shrink-0 group">
                         <i class="fas fa-video group-hover:scale-110 transition-transform"></i> <span data-i18n="new_meeting_btn">New meeting</span>
@@ -203,14 +189,11 @@
             </div>
         </div>
 
-        <!-- Right Content (Smart Camera Card) -->
+        <!-- Right Content -->
         <div class="w-full lg:w-[40%] max-w-md z-10 animate-float px-2 sm:px-0 mt-6 lg:mt-0">
             <div class="glass-panel p-2.5 sm:p-4 rounded-2xl sm:rounded-[2rem] shadow-[0_15px_30px_-10px_rgba(0,0,0,0.15)] border-white/80 relative">
-                <!-- Sleek Camera Preview -->
                 <div class="relative w-full aspect-[4/3] bg-slate-900 rounded-xl sm:rounded-2xl overflow-hidden shadow-inner group">
                     <video id="preview-video" class="w-full h-full object-cover transform scale-x-[-1] transition-transform duration-700 group-hover:scale-[1.02]" autoplay muted playsinline></video>
-                    
-                    <!-- Ambient Video Glow (Simulated) -->
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10 pointer-events-none"></div>
                     
                     <div id="preview-overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/95 backdrop-blur-sm transition-opacity duration-300 z-10">
@@ -218,7 +201,6 @@
                         <span class="text-[10px] sm:text-xs font-bold tracking-widest uppercase text-slate-300" data-i18n="accessing_camera">Starting Camera</span>
                     </div>
 
-                    <!-- Mini status indicator -->
                     <div class="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 bg-black/50 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg border border-white/10 flex items-center gap-1.5 sm:gap-2">
                         <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
                         <span class="text-white text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">Ready</span>
@@ -226,25 +208,31 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- CALL SCREEN (Theater Mode) -->
+    <!-- CALL SCREEN -->
     <div id="call-screen" class="h-full w-full bg-[#0d1117] relative hidden overflow-hidden font-sans">
         
-        <!-- Main Video Area -->
+        <!-- Waiting Lobby Overlay (For Guests) -->
+        <div id="waiting-lobby-overlay" class="absolute inset-0 bg-gray-900/95 backdrop-blur-2xl z-[80] hidden flex-col items-center justify-center p-6 text-center">
+            <div class="w-20 h-20 bg-indigo-500/10 rounded-full flex items-center justify-center relative mb-6">
+                <div class="absolute inset-0 rounded-full border-[3px] border-indigo-500 border-t-transparent animate-spin"></div>
+                <i class="fas fa-lock text-2xl text-indigo-400"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-2" id="waiting-lobby-title" data-i18n="connecting">Connecting...</h2>
+            <p class="text-slate-400 text-sm max-w-sm mb-8" id="waiting-lobby-desc" data-i18n="waiting_for_host">Waiting for host to let you in.</p>
+            <button onclick="endCall()" class="px-6 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl font-medium transition-colors border border-white/10">Cancel</button>
+        </div>
+
         <div class="absolute inset-0 flex flex-col items-center transition-all duration-500 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-800 via-gray-900 to-black" id="video-area">
             
-            <!-- Floating Top Bar (Clean & Smart) -->
+            <!-- Top Bar -->
             <div class="absolute top-safe pt-3 sm:pt-6 w-full px-3 sm:px-6 flex justify-between items-start z-30 pointer-events-none" id="top-bar">
-                
-                <!-- Security Badge -->
                 <div class="glass-panel-dark px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg sm:rounded-xl flex items-center gap-2 sm:gap-3 shadow-lg pointer-events-auto shrink-0 border border-white/10 bg-gray-900/70 hover:bg-gray-800/90 transition-colors cursor-default backdrop-blur-md">
                     <i class="fas fa-shield-alt text-emerald-400 text-[10px] sm:text-xs"></i>
                     <span class="text-slate-200 font-bold text-[9px] sm:text-[10px] tracking-widest uppercase" data-i18n="secure_call">Encrypted</span>
                 </div>
                 
-                <!-- Smart Room Info -->
                 <div id="room-info" class="hidden items-center bg-gray-900/80 backdrop-blur-xl rounded-lg sm:rounded-xl p-1 sm:p-1.5 shadow-2xl group transition-all duration-300 pointer-events-auto hover:bg-gray-800 border border-white/10 max-w-[60%] sm:max-w-none cursor-pointer" onclick="copyRoomLink()">
                     <div class="flex flex-col items-start px-2 py-0.5 sm:px-3 sm:py-1 overflow-hidden w-full">
                         <span class="text-indigo-400/80 text-[8px] sm:text-[9px] font-bold uppercase tracking-widest mb-0.5" data-i18n="meeting_link">Meeting Link</span>
@@ -256,115 +244,122 @@
                 </div>
             </div>
 
-            <!-- Enhanced Empty State -->
+            <!-- Empty State -->
             <div id="waiting-message" class="absolute inset-0 flex flex-col items-center justify-center z-20 hidden pointer-events-none p-4 mt-8 sm:mt-0">
                 <div class="bg-gray-900/70 backdrop-blur-2xl p-6 sm:p-10 rounded-3xl sm:rounded-[2rem] text-center shadow-2xl w-full max-w-[90%] sm:max-w-[440px] border border-white/5 relative overflow-hidden pointer-events-auto group">
-                    
                     <div class="w-16 h-16 sm:w-20 sm:h-20 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 relative">
                         <div class="absolute inset-0 rounded-full border border-indigo-500/30 animate-ping" style="animation-duration: 2.5s;"></div>
                         <i class="fas fa-user-plus text-2xl sm:text-3xl text-indigo-400"></i>
                     </div>
-                    
                     <h2 class="text-lg sm:text-2xl font-bold text-white mb-2" data-i18n="only_one_here">Waiting for others</h2>
-                    <p class="text-slate-400 text-xs sm:text-sm mb-5 sm:mb-8 leading-relaxed px-1 sm:px-2" data-i18n="share_link_desc">Share this link to invite people to the meeting. The room is end-to-end encrypted.</p>
+                    <p class="text-slate-400 text-xs sm:text-sm mb-5 sm:mb-8 leading-relaxed px-1 sm:px-2" data-i18n="share_link_desc">Share this link to invite people to the meeting.</p>
                     
-                    <!-- Copy Link Card -->
                     <div class="bg-black/50 rounded-xl p-2 sm:p-2.5 border border-white/5 cursor-pointer hover:border-indigo-500/50 hover:bg-indigo-500/10 transition-all flex items-center justify-between group/copy" onclick="copyRoomLink()">
                         <div class="flex items-center gap-2 sm:gap-3 overflow-hidden pl-2">
                             <i class="fas fa-link text-indigo-400 text-[10px] sm:text-sm"></i>
                             <span id="waiting-room-id" class="text-slate-200 text-[10px] sm:text-sm truncate font-medium"></span>
                         </div>
-                        <div class="bg-white/10 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[9px] sm:text-xs font-bold text-white group-hover/copy:bg-indigo-500 transition-colors shrink-0">
-                            Copy
-                        </div>
+                        <div class="bg-white/10 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-[9px] sm:text-xs font-bold text-white group-hover/copy:bg-indigo-500 transition-colors shrink-0">Copy</div>
                     </div>
                 </div>
             </div>
 
             <!-- Remote Videos Grid -->
-            <div id="video-grid" class="w-full h-full p-2 sm:p-6 pt-20 sm:pt-24 pb-[110px] sm:pb-36 gap-2 sm:gap-6 grid place-items-center transition-all duration-500 ease-in-out custom-scroll overflow-y-auto">
-                <!-- Injected videos -->
-            </div>
+            <div id="video-grid" class="w-full h-full p-2 sm:p-6 pt-20 sm:pt-24 pb-[110px] sm:pb-36 gap-2 sm:gap-6 grid place-items-center transition-all duration-500 ease-in-out custom-scroll overflow-y-auto"></div>
 
-            <!-- Smart PiP Local Video -->
-            <div id="local-video-container" class="absolute bottom-[90px] sm:bottom-32 right-3 sm:right-6 w-[100px] h-[135px] sm:w-[220px] sm:h-[165px] bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.5)] border-2 border-white/10 z-40 group transition-all duration-300 hover:scale-105 hover:border-indigo-500/50 hover:shadow-indigo-500/20 cursor-move" style="touch-action: none;">
+            <!-- Local Video -->
+            <div id="local-video-container" class="absolute bottom-[90px] sm:bottom-32 right-3 sm:right-6 w-[100px] h-[135px] sm:w-[220px] sm:h-[165px] bg-gray-800 rounded-xl sm:rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.5)] border-2 border-white/10 z-40 group transition-all duration-300 hover:scale-105 hover:border-indigo-500/50 hover:shadow-indigo-500/20">
                 <video id="local-video" class="w-full h-full object-cover" autoplay muted playsinline></video>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                
-                <!-- Status Indicators overlay -->
                 <div class="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 flex gap-1 sm:gap-1.5">
-                    <div id="local-mic-indicator" class="bg-rose-500/95 backdrop-blur-md px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md hidden shadow-sm border border-rose-400/50">
+                    <div id="local-mic-indicator" class="bg-[#f43f5e]/95 backdrop-blur-md px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md hidden shadow-sm border border-[#f43f5e]/50">
                         <i class="fas fa-microphone-slash text-white text-[8px] sm:text-[10px]"></i>
                     </div>
                 </div>
-                <div class="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-black/60 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-[8px] sm:text-[10px] font-bold text-white shadow-sm border border-white/10">You</div>
+                <!-- Local Hand Indicator -->
+                <div id="local-hand-indicator" class="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 bg-yellow-500/90 backdrop-blur-md px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md hidden shadow-sm border border-yellow-400/50">
+                    <i class="fas fa-hand-paper text-white text-[10px] sm:text-xs"></i>
+                </div>
+                <div class="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-black/60 backdrop-blur-md px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-[8px] sm:text-[10px] font-bold text-white shadow-sm border border-white/10" data-i18n="you_label">You</div>
             </div>
 
-            <!-- Dock UI (Floating Controls) -->
-            <div class="absolute bottom-safe pb-4 sm:pb-8 w-full px-2 sm:px-4 flex justify-center z-50 pointer-events-none">
-                <div class="glass-panel-dark rounded-2xl sm:rounded-[2rem] shadow-2xl border border-white/10 pointer-events-auto px-2 py-2 sm:px-6 sm:py-3.5 flex items-center gap-1 sm:gap-3 overflow-visible transition-all">
+            <!-- PREMIUM DOCK UI (Neeche set kiya gaya) -->
+            <div class="absolute bottom-4 sm:bottom-6 w-full px-2 sm:px-4 flex justify-center z-50 pointer-events-none">
+                <div class="bg-[#121825] rounded-[28px] shadow-[0_10px_40px_rgba(0,0,0,0.6)] border border-white/[0.04] pointer-events-auto p-1.5 sm:p-2 flex items-center gap-1.5 sm:gap-2 overflow-visible transition-all">
                     
-                    <!-- Smart Mic Toggle -->
+                    <!-- Media Controls -->
                     <div class="relative has-tooltip">
-                        <button id="btn-mic" onclick="toggleMic()" class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all duration-300 border border-white/5 active:scale-90 group">
-                            <i class="fas fa-microphone text-sm sm:text-lg group-hover:-translate-y-0.5 transition-transform"></i>
+                        <button id="btn-mic" onclick="toggleMic()" class="w-12 h-12 sm:w-[54px] sm:h-[54px] rounded-[18px] flex items-center justify-center transition-all duration-300 active:scale-95 group relative bg-[#293145] hover:bg-[#343d52] text-white">
+                            <i class="fas fa-microphone text-lg sm:text-xl group-hover:-translate-y-0.5 transition-transform"></i>
                         </button>
-                        <span class="tooltip hidden sm:block absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Toggle Microphone</span>
+                        <span class="tooltip hidden sm:block absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Toggle Microphone</span>
                     </div>
                     
-                    <!-- Smart Camera Toggle -->
                     <div class="relative has-tooltip">
-                        <button id="btn-video" onclick="toggleVideo()" class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all duration-300 border border-white/5 active:scale-90 group">
-                            <i class="fas fa-video text-sm sm:text-lg group-hover:-translate-y-0.5 transition-transform"></i>
+                        <button id="btn-video" onclick="toggleVideo()" class="w-12 h-12 sm:w-[54px] sm:h-[54px] rounded-[18px] flex items-center justify-center transition-all duration-300 active:scale-95 group relative bg-[#293145] hover:bg-[#343d52] text-white">
+                            <i class="fas fa-video text-lg sm:text-xl group-hover:-translate-y-0.5 transition-transform"></i>
                         </button>
-                        <span class="tooltip hidden sm:block absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Toggle Camera</span>
+                        <span class="tooltip hidden sm:block absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Toggle Camera</span>
                     </div>
 
-                    <!-- Screen Share -->
                     <div class="relative has-tooltip hidden sm:block">
-                        <button id="btn-screen" onclick="toggleScreenShare()" class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all duration-300 border border-white/5 active:scale-90 group">
-                            <i class="fas fa-desktop text-sm sm:text-lg group-hover:-translate-y-0.5 transition-transform"></i>
+                        <button id="btn-screen" onclick="toggleScreenShare()" class="w-12 h-12 sm:w-[54px] sm:h-[54px] rounded-[18px] flex items-center justify-center transition-all duration-300 active:scale-95 group relative bg-[#293145] hover:bg-[#343d52] text-white">
+                            <i class="fas fa-desktop text-lg sm:text-xl group-hover:-translate-y-0.5 transition-transform"></i>
                         </button>
-                        <span class="tooltip hidden sm:block absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Present Screen</span>
+                        <span class="tooltip hidden sm:block absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Present Screen</span>
                     </div>
                     
-                    <div class="w-px h-6 sm:h-8 bg-white/10 mx-0.5 sm:mx-1"></div>
+                    <div class="relative has-tooltip">
+                        <button id="btn-hand" onclick="toggleRaiseHand()" class="w-12 h-12 sm:w-[54px] sm:h-[54px] rounded-[18px] flex items-center justify-center transition-all duration-300 active:scale-95 group relative bg-[#293145] hover:bg-[#343d52] text-white">
+                            <i class="fas fa-hand-paper text-lg sm:text-xl group-hover:-translate-y-0.5 transition-transform"></i>
+                        </button>
+                        <span class="tooltip hidden sm:block absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Raise Hand</span>
+                    </div>
 
-                    <!-- Participants -->
+                    <!-- Divider -->
+                    <div class="w-px h-8 bg-[#273142] mx-0.5 sm:mx-1"></div>
+
+                    <!-- Interactive Panels -->
                     <div class="relative has-tooltip">
-                        <button id="btn-participants" onclick="toggleSidebar('participants')" class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 hover:bg-indigo-500/20 text-white hover:text-indigo-300 flex items-center justify-center transition-all duration-300 border border-white/5 active:scale-90 group relative">
-                            <i class="fas fa-users text-sm sm:text-lg group-hover:-translate-y-0.5 transition-transform"></i>
-                            <span id="participants-badge" class="absolute top-1 right-1 bg-indigo-500 text-white text-[8px] sm:text-[9px] font-bold w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center shadow-lg border border-gray-900 hidden">1</span>
+                        <button id="btn-participants" onclick="toggleSidebar('participants')" class="w-12 h-12 sm:w-[54px] sm:h-[54px] rounded-[18px] flex items-center justify-center transition-all duration-300 active:scale-95 group relative bg-[#293145] hover:bg-[#343d52] text-white">
+                            <i class="fas fa-users text-lg sm:text-xl group-hover:-translate-y-0.5 transition-transform"></i>
+                            <span id="participants-badge" class="absolute -top-1 -right-1 bg-indigo-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-lg border border-[#121825] hidden">1</span>
                         </button>
-                        <span class="tooltip hidden sm:block absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">People</span>
+                        <span class="tooltip hidden sm:block absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">People</span>
                     </div>
                     
-                    <!-- Chat -->
                     <div class="relative has-tooltip">
-                        <button id="btn-chat" onclick="toggleSidebar('chat')" class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 hover:bg-indigo-500/20 text-white hover:text-indigo-300 flex items-center justify-center transition-all duration-300 border border-white/5 active:scale-90 group relative">
-                            <i class="fas fa-comment-dots text-sm sm:text-lg group-hover:-translate-y-0.5 transition-transform"></i>
-                            <span id="chat-badge" class="absolute top-1 right-1 bg-rose-500 text-white text-[8px] sm:text-[9px] font-bold w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full flex items-center justify-center shadow-lg border border-gray-900 hidden animate-pulse">!</span>
+                        <button id="btn-chat" onclick="toggleSidebar('chat')" class="w-12 h-12 sm:w-[54px] sm:h-[54px] rounded-[18px] flex items-center justify-center transition-all duration-300 active:scale-95 group relative bg-[#293145] hover:bg-[#343d52] text-white">
+                            <i class="fas fa-comment-dots text-lg sm:text-xl group-hover:-translate-y-0.5 transition-transform"></i>
+                            <span id="chat-badge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-lg border border-[#121825] hidden animate-pulse">!</span>
                         </button>
-                        <span class="tooltip hidden sm:block absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Chat</span>
+                        <span class="tooltip hidden sm:block absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Chat</span>
+                    </div>
+
+                    <!-- Host Controls Button -->
+                    <div id="btn-host-wrap" class="relative has-tooltip hidden">
+                        <button onclick="toggleSidebar('settings')" class="w-12 h-12 sm:w-[54px] sm:h-[54px] rounded-[18px] flex items-center justify-center transition-all duration-300 active:scale-95 group relative bg-[#174636] hover:bg-[#1b5240] text-[#22c55e]">
+                            <i class="fas fa-shield-alt text-lg sm:text-xl group-hover:-translate-y-0.5 transition-transform"></i>
+                        </button>
+                        <span class="tooltip hidden sm:block absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Host Controls</span>
                     </div>
                     
-                    <div class="w-px h-6 sm:h-8 bg-white/10 mx-0.5 sm:mx-1"></div>
+                    <!-- Divider -->
+                    <div class="w-px h-8 bg-[#273142] mx-0.5 sm:mx-1"></div>
                     
                     <!-- End Call -->
-                    <div class="relative has-tooltip ml-0.5 sm:ml-1">
-                        <button onclick="endCall()" class="w-14 h-11 sm:w-20 sm:h-14 rounded-xl sm:rounded-2xl bg-rose-500 hover:bg-rose-600 text-white flex items-center justify-center transition-all duration-300 border border-rose-400/50 shadow-[0_4px_15px_rgba(244,63,94,0.3)] active:scale-90 group">
-                            <i class="fas fa-phone-slash text-base sm:text-xl group-hover:scale-110 transition-transform"></i>
+                    <div class="relative has-tooltip">
+                        <button onclick="endCall()" class="w-16 h-12 sm:w-[80px] sm:h-[54px] rounded-[18px] flex items-center justify-center transition-all duration-300 active:scale-95 group relative bg-[#fa4b61] hover:bg-[#e03e52] text-white shadow-[0_0_15px_rgba(250,75,97,0.15)]">
+                            <i class="fas fa-phone-slash text-xl sm:text-2xl group-hover:scale-110 transition-transform"></i>
                         </button>
-                        <span class="tooltip hidden sm:block absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Leave Call</span>
+                        <span class="tooltip hidden sm:block absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg opacity-0 invisible transition-all duration-200 whitespace-nowrap shadow-lg border border-white/10">Leave Call</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Smart Sidebar -->
+        <!-- Sidebar -->
         <div id="sidebar" class="fixed inset-y-0 right-0 w-full sm:w-[380px] bg-gray-900/95 backdrop-blur-3xl sm:border-l border-white/10 flex flex-col transition-transform duration-500 transform translate-x-full z-[90] shadow-2xl">
-            
-            <!-- Header -->
             <div class="p-4 pt-safe-top sm:p-5 border-b border-white/10 flex justify-between items-center bg-gray-950/50">
                 <h3 id="sidebar-title" class="text-white font-bold text-base sm:text-lg tracking-wide" data-i18n="chat_title">Chat</h3>
                 <button onclick="closeSidebar()" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/15 flex items-center justify-center text-slate-300 hover:text-white transition-all active:scale-95 border border-white/5">
@@ -377,10 +372,9 @@
                 <div id="chat-messages" class="flex-grow overflow-y-auto p-4 sm:p-5 space-y-4 custom-scroll flex flex-col">
                     <div class="text-center bg-indigo-500/10 rounded-2xl py-3 px-4 mx-auto border border-indigo-500/20 max-w-[250px]">
                         <i class="fas fa-lock text-indigo-400 text-sm mb-2"></i>
-                        <p class="text-[10px] sm:text-[11px] text-indigo-200 font-medium leading-relaxed" data-i18n="secure_chat_welcome">Messages are end-to-end encrypted and disappear when the call ends.</p>
+                        <p class="text-[10px] sm:text-[11px] text-indigo-200 font-medium leading-relaxed" data-i18n="secure_chat_welcome">Messages are end-to-end encrypted.</p>
                     </div>
                 </div>
-                <!-- Input Area -->
                 <div class="p-3 pb-safe sm:p-4 border-t border-white/10 bg-gray-950/80">
                     <form id="chat-form" onsubmit="sendChatMessage(event)" class="flex gap-2 bg-gray-800 p-1.5 rounded-xl sm:rounded-2xl border border-white/10 focus-within:border-indigo-500/50 transition-colors shadow-inner">
                         <input type="text" id="chat-input" data-i18n-placeholder="chat_placeholder" placeholder="Type a message..." class="flex-grow bg-transparent text-white text-[13px] sm:text-sm rounded-lg sm:rounded-xl px-3 py-2 outline-none placeholder-slate-500 font-medium" disabled>
@@ -392,14 +386,71 @@
             </div>
 
             <!-- Participants Panel -->
-            <div id="participants-content" class="flex-grow overflow-y-auto p-4 custom-scroll hidden">
-                <div class="space-y-2" id="participants-list">
-                    <!-- Dynamic list -->
+            <div id="participants-content" class="flex-grow overflow-y-auto p-4 custom-scroll hidden flex-col gap-4">
+                
+                <!-- Waiting Room (Host Only) -->
+                <div id="waiting-room-section" class="hidden flex-col gap-2">
+                    <h4 class="text-xs font-bold text-indigo-400 uppercase tracking-wider pl-1 flex justify-between items-center">
+                        <span data-i18n="waiting_room">Waiting Room</span>
+                        <span id="waiting-count" class="bg-indigo-500 text-white px-2 py-0.5 rounded-md text-[10px]">0</span>
+                    </h4>
+                    <div id="waiting-list" class="space-y-2"></div>
+                    <div class="w-full h-px bg-white/10 my-2"></div>
+                </div>
+
+                <div class="space-y-2" id="participants-list"></div>
+            </div>
+
+            <!-- Host Settings Panel -->
+            <div id="settings-content" class="flex-grow overflow-y-auto p-5 custom-scroll hidden flex-col gap-6">
+                <!-- Lock Meeting -->
+                <div class="flex items-center justify-between bg-gray-800/50 p-4 rounded-xl border border-white/5">
+                    <div>
+                        <h4 class="text-white font-medium text-sm" data-i18n="lock_meeting">Lock Meeting</h4>
+                        <p class="text-slate-400 text-[10px] mt-1" data-i18n="lock_desc">Prevent anyone else from joining.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="toggle-lock" class="sr-only peer" onchange="updateHostSettings('locked', this.checked)">
+                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-rose-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all border border-gray-600"></div>
+                    </label>
+                </div>
+
+                <!-- Waiting Room Toggle -->
+                <div class="flex items-center justify-between bg-gray-800/50 p-4 rounded-xl border border-white/5">
+                    <div>
+                        <h4 class="text-white font-medium text-sm" data-i18n="quick_access">Quick Access</h4>
+                        <p class="text-slate-400 text-[10px] mt-1" data-i18n="quick_access_desc">Turn off for waiting room approval.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="toggle-waiting" class="sr-only peer" checked onchange="updateHostSettings('waitingRoom', !this.checked)">
+                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-emerald-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all border border-gray-600"></div>
+                    </label>
+                </div>
+
+                <!-- Screen Share Control -->
+                <div class="flex items-center justify-between bg-gray-800/50 p-4 rounded-xl border border-white/5">
+                    <div>
+                        <h4 class="text-white font-medium text-sm" data-i18n="allow_screen_share">Share Screen</h4>
+                        <p class="text-slate-400 text-[10px] mt-1" data-i18n="screen_share_desc">Let participants share screens.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="toggle-screen" class="sr-only peer" checked onchange="updateHostSettings('screenShare', this.checked)">
+                        <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-indigo-500 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all border border-gray-600"></div>
+                    </label>
+                </div>
+
+                <!-- Chat Control -->
+                <div class="bg-gray-800/50 p-4 rounded-xl border border-white/5">
+                    <h4 class="text-white font-medium text-sm mb-3" data-i18n="chat_mode">Chat Restrictions</h4>
+                    <select id="select-chat-mode" onchange="updateHostSettings('chat', this.value)" class="w-full bg-gray-900 border border-white/10 text-white text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block p-2.5 outline-none">
+                        <option value="all" data-i18n="chat_all">Everyone</option>
+                        <option value="host-only" data-i18n="chat_host">Host Only</option>
+                        <option value="disabled" data-i18n="chat_disabled">Disabled</option>
+                    </select>
                 </div>
             </div>
 
         </div>
-
     </div>
 
     <script>
@@ -416,19 +467,20 @@
                 secure_call: "Encrypted",
                 meeting_link: "Meeting Link",
                 only_one_here: "Waiting for others",
-                share_link_desc: "Share this link to invite people to the meeting. The room is end-to-end encrypted.",
+                share_link_desc: "Share this link to invite people to the meeting.",
                 chat_title: "Messages",
-                secure_chat_welcome: "Messages are end-to-end encrypted and disappear when the call ends.",
+                secure_chat_welcome: "Messages are end-to-end encrypted.",
                 chat_placeholder: "Type a message...",
+                chat_disabled_msg: "Chat is disabled by host.",
                 meeting_host: "Host",
                 participant: "Participant",
                 in_call: "People",
                 allow_cam_mic: "Camera & mic access required.",
                 generating_link: "Creating Secure Room...",
                 enter_id_link: "Please enter a valid link/code",
-                connecting_meeting: "Joining Room...",
-                joining: "Joining...",
+                connecting_meeting: "Requesting to Join...",
                 connecting: "Connecting...",
+                waiting_for_host: "Waiting for host to approve request...",
                 meeting_not_found: "Room not found or ended.",
                 camera_off: "Camera Off",
                 camera_unavailable: "Camera Blocked",
@@ -440,7 +492,23 @@
                 link_copied: "Link Copied!",
                 link_copy_failed: "Failed to copy.",
                 guest: "Guest",
-                you_label: "You"
+                you_label: "You",
+                host_controls: "Host Controls",
+                waiting_room: "Waiting Room",
+                lock_meeting: "Lock Meeting",
+                lock_desc: "Prevent anyone else from joining.",
+                quick_access: "Quick Access",
+                quick_access_desc: "Turn off for waiting room approval.",
+                allow_screen_share: "Share Screen",
+                screen_share_desc: "Let participants share screens.",
+                chat_mode: "Chat Restrictions",
+                chat_all: "Everyone",
+                chat_host: "Host Only",
+                chat_disabled: "Disabled",
+                admit: "Admit",
+                deny: "Deny",
+                removed_by_host: "You were removed by the host.",
+                meeting_locked: "Meeting is locked by host."
             },
             bn: {
                 main_heading: "প্রিমিয়াম ভিডিও মিটিং।<br><span class=\"text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600\">এখন সবার জন্য ফ্রি।</span>",
@@ -453,19 +521,20 @@
                 secure_call: "এনক্রিপ্টেড",
                 meeting_link: "মিটিং লিঙ্ক",
                 only_one_here: "অন্যদের জন্য অপেক্ষা করা হচ্ছে",
-                share_link_desc: "মানুষকে আমন্ত্রণ জানাতে এই লিঙ্কটি শেয়ার করুন। রুমটি এন্ড-টু-এন্ড এনক্রিপ্টেড।",
+                share_link_desc: "মানুষকে আমন্ত্রণ জানাতে এই লিঙ্কটি শেয়ার করুন।",
                 chat_title: "বার্তা",
-                secure_chat_welcome: "বার্তাগুলো এনক্রিপ্টেড এবং কল শেষ হলে মুছে যাবে।",
+                secure_chat_welcome: "বার্তাগুলো এনক্রিপ্টেড।",
                 chat_placeholder: "বার্তা লিখুন...",
+                chat_disabled_msg: "হোস্ট চ্যাট বন্ধ করেছে।",
                 meeting_host: "হোস্ট",
                 participant: "সদস্য",
                 in_call: "মানুষ",
                 allow_cam_mic: "ক্যামেরা ও মাইক অ্যাক্সেস প্রয়োজন।",
                 generating_link: "সুরক্ষিত রুম তৈরি হচ্ছে...",
                 enter_id_link: "সঠিক লিঙ্ক বা কোড দিন",
-                connecting_meeting: "রুমে যোগ দেওয়া হচ্ছে...",
-                joining: "যোগ দিচ্ছে...",
+                connecting_meeting: "যোগ দেওয়ার অনুরোধ করা হচ্ছে...",
                 connecting: "সংযুক্ত হচ্ছে...",
+                waiting_for_host: "হোস্টের অনুমোদনের জন্য অপেক্ষা করুন...",
                 meeting_not_found: "রুম পাওয়া যায়নি।",
                 camera_off: "ক্যামেরা বন্ধ",
                 camera_unavailable: "ক্যামেরা ব্লক করা আছে",
@@ -477,12 +546,27 @@
                 link_copied: "লিঙ্ক কপি হয়েছে!",
                 link_copy_failed: "কপি করতে ব্যর্থ।",
                 guest: "অতিথি",
-                you_label: "আপনি"
+                you_label: "আপনি",
+                host_controls: "হোস্ট সেটিংস",
+                waiting_room: "ওয়েটিং রুম",
+                lock_meeting: "মিটিং লক করুন",
+                lock_desc: "নতুনদের যোগ দেওয়া বন্ধ করুন।",
+                quick_access: "কুইক অ্যাক্সেস",
+                quick_access_desc: "ওয়েটিং রুমের জন্য এটি বন্ধ করুন।",
+                allow_screen_share: "স্ক্রিন শেয়ার",
+                screen_share_desc: "সদস্যদের স্ক্রিন শেয়ারের অনুমতি দিন।",
+                chat_mode: "চ্যাট কন্ট্রোল",
+                chat_all: "সবাই",
+                chat_host: "শুধু হোস্ট",
+                chat_disabled: "বন্ধ",
+                admit: "অনুমোদন",
+                deny: "বাতিল",
+                removed_by_host: "হোস্ট আপনাকে বের করে দিয়েছে।",
+                meeting_locked: "মিটিংটি হোস্ট লক করেছে।"
             }
         };
         
         let currentLang = 'en';
-
         function t(key) { return i18n[currentLang][key] || key; }
 
         function updateLanguage() {
@@ -503,7 +587,7 @@
             updateLanguage();
         }
 
-        // --- State Variables ---
+        // --- Core State ---
         let peer = null;
         let localStream = null;
         let isMicMuted = false;
@@ -516,6 +600,18 @@
         let unreadMessages = 0;
         let localUserName = '';
         const peers = {};
+
+        // --- Premium Host Features State ---
+        let isHost = false;
+        let meetingSettings = {
+            locked: false,
+            waitingRoom: false, // Default is Quick Access (waiting room off)
+            screenShare: true,
+            chat: 'all' // 'all', 'host-only', 'disabled'
+        };
+        let waitingQueue = {}; // Tracks pending joins
+        let raisedHands = new Set();
+        let myHandRaised = false;
 
         // --- DOM Elements ---
         const screens = { setup: document.getElementById('setup-screen'), call: document.getElementById('call-screen') };
@@ -531,11 +627,14 @@
             btnMic: document.getElementById('btn-mic'),
             btnVideo: document.getElementById('btn-video'),
             btnScreen: document.getElementById('btn-screen'),
+            btnHand: document.getElementById('btn-hand'),
             localMicIndicator: document.getElementById('local-mic-indicator'),
+            localHandIndicator: document.getElementById('local-hand-indicator'),
             sidebar: document.getElementById('sidebar'),
             videoArea: document.getElementById('video-area'),
             chatContent: document.getElementById('chat-content'),
             participantsContent: document.getElementById('participants-content'),
+            settingsContent: document.getElementById('settings-content'),
             sidebarTitle: document.getElementById('sidebar-title'),
             chatMessages: document.getElementById('chat-messages'),
             chatInput: document.getElementById('chat-input'),
@@ -543,7 +642,11 @@
             chatBadge: document.getElementById('chat-badge'),
             participantsBadge: document.getElementById('participants-badge'),
             participantsList: document.getElementById('participants-list'),
-            userNameInput: document.getElementById('user-name-input')
+            userNameInput: document.getElementById('user-name-input'),
+            btnHostWrap: document.getElementById('btn-host-wrap'),
+            lobbyOverlay: document.getElementById('waiting-lobby-overlay'),
+            lobbyTitle: document.getElementById('waiting-lobby-title'),
+            lobbyDesc: document.getElementById('waiting-lobby-desc')
         };
 
         function checkUrlParams() {
@@ -576,7 +679,7 @@
             checkUrlParams(); 
 
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                showToast(t('cam_not_found'));
+                showToast(t('no_cam'));
                 setupDummyStreamFallback();
             } else {
                 try {
@@ -620,9 +723,13 @@
             return new Peer({ config: {'iceServers': [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:stun1.l.google.com:19302' }]} });
         }
 
+        // --- Host: Create Room ---
         function createRoom() {
             if (!localStream) return showToast(t('allow_cam_mic'));
             localUserName = ui.userNameInput.value.trim() || t('meeting_host');
+            isHost = true;
+            ui.btnHostWrap.classList.remove('hidden'); // Show Host Controls
+            
             switchScreen('call');
             showToast(t('generating_link'));
             peer = initPeer();
@@ -632,11 +739,14 @@
                 ui.displayRoomId.innerText = link; ui.waitingRoomId.innerText = link;
                 ui.roomInfo.classList.remove('hidden'); ui.roomInfo.classList.add('flex');
                 ui.waitingMessage.classList.remove('hidden');
-                updateParticipantsList(); setupPeerListeners();
+                updateParticipantsList(); 
+                setupPeerListeners();
             });
             handlePeerErrors();
+            applyMeetingSettings();
         }
 
+        // --- Guest: Join Room ---
         function joinRoom() {
             let inputId = document.getElementById('join-id-input').value.trim();
             if (!inputId) return showToast(t('enter_id_link'));
@@ -645,19 +755,69 @@
             localUserName = ui.userNameInput.value.trim() || t('guest');
             if (inputId.includes('?room=')) inputId = inputId.split('?room=')[1].split('&')[0];
             activeRoomId = inputId;
+            isHost = false;
+            ui.btnHostWrap.classList.add('hidden');
 
             switchScreen('call');
             ui.roomInfo.classList.add('hidden'); ui.waitingMessage.classList.add('hidden');
-            showToast(t('connecting_meeting'));
-
+            
             peer = initPeer();
             peer.on('open', () => {
-                setupPeerListeners(); initiateConnection(inputId); 
+                setupPeerListeners();
+                startJoinHandshake(inputId); 
             });
             handlePeerErrors();
         }
 
+        // --- NEW: Handshake Protocol (Waiting Room logic) ---
+        function startJoinHandshake(hostId) {
+            ui.lobbyOverlay.classList.remove('hidden');
+            ui.lobbyOverlay.classList.add('flex');
+            
+            // Connect specifying this is an initial join request
+            const conn = peer.connect(hostId, { metadata: { name: localUserName, type: 'join-request' } });
+            
+            conn.on('open', () => {
+                conn.send({ type: 'join-request', name: localUserName });
+            });
+
+            conn.on('data', data => {
+                if (data.type === 'join-response') {
+                    if (data.status === 'approved') {
+                        meetingSettings = data.settings;
+                        applyMeetingSettings();
+                        
+                        // Hide lobby overlay
+                        ui.lobbyOverlay.classList.add('hidden');
+                        ui.lobbyOverlay.classList.remove('flex');
+                        
+                        // Proceed with full Media Call & Data Connection
+                        peers[hostId] = { name: t('meeting_host'), data: conn };
+                        setupDataConnEvents(conn);
+                        
+                        const call = peer.call(hostId, localStream, { metadata: { name: localUserName } });
+                        peers[hostId].call = call;
+                        setupMediaCallEvents(call);
+
+                    } else if (data.status === 'pending') {
+                        ui.lobbyTitle.innerText = "In Lobby";
+                        ui.lobbyDesc.innerText = t('waiting_for_host');
+                    } else if (data.status === 'rejected') {
+                        showToast(t(data.reason === 'locked' ? 'meeting_locked' : 'removed_by_host'));
+                        endCall();
+                    }
+                }
+            });
+
+            conn.on('close', () => {
+                if (!peers[hostId]) { // If closed before full approval
+                    endCall();
+                }
+            });
+        }
+
         function setupPeerListeners() {
+            // Media Connection handling
             peer.on('call', (call) => {
                 const callerName = call.metadata?.name || t('joining');
                 if (!peers[call.peer]) peers[call.peer] = { name: callerName };
@@ -666,20 +826,50 @@
                 setupMediaCallEvents(call);
                 ui.waitingMessage.classList.add('hidden');
             });
+
+            // Data Connection handling (Host intercept & Mesh connection)
             peer.on('connection', (conn) => {
-                const connectorName = conn.metadata?.name || t('joining');
-                if (!peers[conn.peer]) peers[conn.peer] = { name: connectorName };
-                peers[conn.peer].data = conn;
-                setupDataConnEvents(conn);
+                if (isHost && conn.metadata?.type === 'join-request') {
+                    // Host intercepts join request
+                    conn.on('data', data => {
+                        if (data.type === 'join-request') {
+                            if (meetingSettings.locked) {
+                                conn.send({ type: 'join-response', status: 'rejected', reason: 'locked' });
+                                setTimeout(() => conn.close(), 500);
+                            } else if (meetingSettings.waitingRoom) {
+                                waitingQueue[conn.peer] = { name: data.name, conn: conn };
+                                conn.send({ type: 'join-response', status: 'pending' });
+                                renderWaitingRoom();
+                            } else {
+                                // Quick Access approved
+                                approveGuest(conn.peer, data.name, conn);
+                            }
+                        }
+                    });
+                    conn.on('close', () => {
+                        if (waitingQueue[conn.peer]) {
+                            delete waitingQueue[conn.peer];
+                            renderWaitingRoom();
+                        }
+                    });
+                } else {
+                    // Standard Mesh Data Connection
+                    const connectorName = conn.metadata?.name || t('joining');
+                    if (!peers[conn.peer]) peers[conn.peer] = { name: connectorName };
+                    peers[conn.peer].data = conn;
+                    setupDataConnEvents(conn);
+                }
             });
         }
 
-        function initiateConnection(targetPeerId) {
-            if (peers[targetPeerId] && (peers[targetPeerId].call || peers[targetPeerId].data)) return; 
+        function initiateMeshConnection(targetPeerId) {
+            if (peers[targetPeerId]) return;
             peers[targetPeerId] = { name: t('connecting') };
+            
             const call = peer.call(targetPeerId, localStream, { metadata: { name: localUserName } });
             if (call) { peers[targetPeerId].call = call; setupMediaCallEvents(call); }
-            const conn = peer.connect(targetPeerId, { metadata: { name: localUserName } });
+            
+            const conn = peer.connect(targetPeerId, { metadata: { name: localUserName, type: 'mesh' } });
             if (conn) { peers[targetPeerId].data = conn; setupDataConnEvents(conn); }
         }
 
@@ -703,7 +893,9 @@
         }
 
         function setupDataConnEvents(conn) {
-            ui.chatInput.disabled = false; ui.chatSubmit.disabled = false;
+            // Unblock chat if allowed
+            applyMeetingSettings();
+
             const sendHandshake = () => { if (conn.open) conn.send({ type: 'handshake', name: localUserName }); };
             if (conn.open) sendHandshake(); else conn.on('open', sendHandshake);
 
@@ -715,13 +907,14 @@
                         const avatar = document.getElementById(`avatar-${conn.peer}`);
                         if (avatar) avatar.innerText = data.name.charAt(0).toUpperCase();
                     }
-                    if (peer && peer.id === activeRoomId) {
+                    if (isHost) {
+                        // Send mesh peer list
                         const existingPeers = Object.keys(peers).filter(p => p !== conn.peer);
                         if (existingPeers.length > 0) conn.send({ type: 'peer-list', list: existingPeers });
                     }
                 } 
                 else if (data.type === 'peer-list') {
-                    data.list.forEach(peerId => { if (peer && peerId !== peer.id && !peers[peerId]) initiateConnection(peerId); });
+                    data.list.forEach(peerId => { if (peer && peerId !== peer.id && !peers[peerId]) initiateMeshConnection(peerId); });
                 } 
                 else if (data.type === 'chat') {
                     const senderName = peers[conn.peer]?.name || t('guest');
@@ -732,8 +925,17 @@
                         ui.chatBadge.classList.remove('hidden');
                     }
                 }
+                // --- HOST/REALTIME EVENTS ---
+                else if (data.type === 'host-command') {
+                    handleHostCommand(data.command, data.payload);
+                }
+                else if (data.type === 'raise-hand') {
+                    if (data.state) raisedHands.add(conn.peer); else raisedHands.delete(conn.peer);
+                    updateParticipantsList(); updateVideoLabel(conn.peer, peers[conn.peer]?.name); // re-render indicator
+                }
                 else if (data.type === 'leaving') { removePeer(conn.peer); }
             });
+            
             conn.on('close', () => removePeer(conn.peer));
             conn.on('error', () => removePeer(conn.peer));
         }
@@ -743,13 +945,14 @@
                 if (err.type === 'peer-unavailable') {
                     let failedId = err.message && err.message.includes('connect to peer') ? err.message.split('peer ')[1] : null;
                     if (failedId) removePeer(failedId);
-                    if (Object.keys(peers).length === 0 && activeRoomId && peer.id !== activeRoomId) {
+                    if (Object.keys(peers).length === 0 && activeRoomId && peer.id !== activeRoomId && !ui.lobbyOverlay.classList.contains('flex')) {
                         showToast(t('meeting_not_found')); endCall();
                     }
                 }
             });
         }
 
+        // --- Video Render Logic ---
         function addVideoElement(peerId, stream) {
             if (document.getElementById(`video-container-${peerId}`)) return; 
             
@@ -771,24 +974,36 @@
             const overlay = document.createElement('div');
             overlay.className = 'absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none';
 
+            const nameWrap = document.createElement('div');
+            nameWrap.className = 'absolute bottom-2 left-2 sm:bottom-3 sm:left-3 flex gap-2 items-center';
+            
+            const handIcon = document.createElement('div');
+            handIcon.id = `hand-${peerId}`;
+            handIcon.className = `bg-yellow-500/90 backdrop-blur-md px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md shadow-sm border border-yellow-400/50 ${raisedHands.has(peerId) ? '' : 'hidden'}`;
+            handIcon.innerHTML = `<i class="fas fa-hand-paper text-white text-[10px] sm:text-xs"></i>`;
+
             const nameLabel = document.createElement('div');
             nameLabel.id = `label-${peerId}`;
-            nameLabel.className = 'absolute bottom-2 left-2 sm:bottom-3 sm:left-3 bg-black/50 backdrop-blur-md px-2 py-1 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold text-white shadow-sm border border-white/10 pointer-events-none max-w-[80%] truncate';
+            nameLabel.className = 'bg-black/50 backdrop-blur-md px-2 py-1 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold text-white shadow-sm border border-white/10 pointer-events-none max-w-[80%] truncate';
             const peerName = peers[peerId]?.name || t('connecting');
             nameLabel.innerText = peerName;
+
+            nameWrap.append(handIcon, nameLabel);
 
             const avatarOverlay = document.createElement('div');
             avatarOverlay.className = `absolute inset-0 flex flex-col items-center justify-center bg-gray-800 ${stream.getVideoTracks().length > 0 ? 'hidden' : 'flex'}`;
             avatarOverlay.innerHTML = `<div id="avatar-${peerId}" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-indigo-600 flex items-center justify-center text-2xl sm:text-3xl font-extrabold text-white shadow-inner">${peerName.charAt(0).toUpperCase()}</div>`;
             
-            container.append(video, avatarOverlay, overlay, nameLabel);
+            container.append(video, avatarOverlay, overlay, nameWrap);
             ui.videoGrid.appendChild(container);
             updateGridClasses();
         }
 
         function updateVideoLabel(peerId, name) {
             const label = document.getElementById(`label-${peerId}`);
-            if (label) label.innerText = name;
+            if (label) label.innerText = name || t('guest');
+            const hand = document.getElementById(`hand-${peerId}`);
+            if (hand) { if (raisedHands.has(peerId)) hand.classList.remove('hidden'); else hand.classList.add('hidden'); }
         }
 
         function removePeer(peerId) {
@@ -797,6 +1012,7 @@
                 if (peers[peerId].data) peers[peerId].data.close();
                 delete peers[peerId];
             }
+            raisedHands.delete(peerId);
             const el = document.getElementById(`video-container-${peerId}`);
             if (el) {
                 el.classList.add('opacity-0', 'scale-95');
@@ -820,16 +1036,21 @@
             }
         }
 
-        // --- Smart Controls Actions ---
+        // --- Controls Actions (Updated to Match New Sleek Dock UI) ---
+        const baseBtnCls = "w-12 h-12 sm:w-[54px] sm:h-[54px] rounded-[18px] flex items-center justify-center transition-all duration-300 active:scale-95 group relative";
+        const darkBtnCls = `${baseBtnCls} bg-[#293145] hover:bg-[#343d52] text-white`;
+        const redBtnCls  = `${baseBtnCls} bg-[#fa4b61] hover:bg-[#e03e52] text-white shadow-[0_0_15px_rgba(250,75,97,0.15)]`;
+        const greenBtnCls = `${baseBtnCls} bg-[#174636] hover:bg-[#1b5240] text-[#22c55e]`;
+
         function updateMicUI() {
             const icon = ui.btnMic.querySelector('i');
             if (isMicMuted) {
-                icon.className = 'fas fa-microphone-slash text-white';
-                ui.btnMic.className = 'w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-rose-500 hover:bg-rose-600 text-white flex items-center justify-center transition-all duration-300 shadow-lg shadow-rose-500/30 active:scale-90 group';
+                icon.className = 'fas fa-microphone-slash text-lg sm:text-xl text-white';
+                ui.btnMic.className = redBtnCls;
                 ui.localMicIndicator.classList.remove('hidden');
             } else {
-                icon.className = 'fas fa-microphone text-sm sm:text-lg group-hover:-translate-y-0.5 transition-transform';
-                ui.btnMic.className = 'w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all duration-300 border border-white/5 active:scale-90 group';
+                icon.className = 'fas fa-microphone text-lg sm:text-xl text-white group-hover:-translate-y-0.5 transition-transform';
+                ui.btnMic.className = darkBtnCls;
                 ui.localMicIndicator.classList.add('hidden');
             }
         }
@@ -837,11 +1058,11 @@
         function updateVideoUI() {
             const icon = ui.btnVideo.querySelector('i');
             if (isCamOff) {
-                icon.className = 'fas fa-video-slash text-white';
-                ui.btnVideo.className = 'w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-rose-500 hover:bg-rose-600 text-white flex items-center justify-center transition-all duration-300 shadow-lg shadow-rose-500/30 active:scale-90 group';
+                icon.className = 'fas fa-video-slash text-lg sm:text-xl text-white';
+                ui.btnVideo.className = redBtnCls;
             } else {
-                icon.className = 'fas fa-video text-sm sm:text-lg group-hover:-translate-y-0.5 transition-transform';
-                ui.btnVideo.className = 'w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all duration-300 border border-white/5 active:scale-90 group';
+                icon.className = 'fas fa-video text-lg sm:text-xl text-white group-hover:-translate-y-0.5 transition-transform';
+                ui.btnVideo.className = darkBtnCls;
             }
         }
 
@@ -863,6 +1084,8 @@
 
         async function toggleScreenShare() {
             if (Object.keys(peers).length === 0) return showToast(t('share_screen_prompt'));
+            if (!meetingSettings.screenShare && !isHost) return showToast("Host has disabled screen sharing.");
+            
             if (!isScreenSharing) {
                 try {
                     screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
@@ -874,8 +1097,8 @@
                         }
                     });
                     isScreenSharing = true;
-                    ui.btnScreen.classList.replace('bg-white/10', 'bg-indigo-500');
-                    ui.btnScreen.classList.replace('hover:bg-white/20', 'hover:bg-indigo-600');
+                    // Blue active state
+                    ui.btnScreen.className = `${baseBtnCls} bg-indigo-500 hover:bg-indigo-600 text-white`;
                     videoTrack.onended = () => stopScreenShare();
                 } catch (e) { console.error(e); }
             } else { stopScreenShare(); }
@@ -892,8 +1115,27 @@
             });
             if (screenStream) screenStream.getTracks().forEach(t => t.stop());
             isScreenSharing = false;
-            ui.btnScreen.classList.replace('bg-indigo-500', 'bg-white/10');
-            ui.btnScreen.classList.replace('hover:bg-indigo-600', 'hover:bg-white/20');
+            ui.btnScreen.className = darkBtnCls;
+        }
+
+        function toggleRaiseHand() {
+            myHandRaised = !myHandRaised;
+            
+            // Update UI
+            if (myHandRaised) {
+                // Yellow active state
+                ui.btnHand.className = `${baseBtnCls} bg-yellow-500 hover:bg-yellow-600 text-white`;
+                ui.localHandIndicator.classList.remove('hidden');
+            } else {
+                ui.btnHand.className = darkBtnCls;
+                ui.localHandIndicator.classList.add('hidden');
+            }
+
+            // Broadcast
+            Object.values(peers).forEach(p => {
+                if (p.data && p.data.open) p.data.send({ type: 'raise-hand', state: myHandRaised });
+            });
+            updateParticipantsList();
         }
 
         // --- Sidebar & Chat ---
@@ -902,12 +1144,15 @@
             const text = ui.chatInput.value.trim();
             if (!text) return;
 
+            if (!isHost && meetingSettings.chat === 'host-only') return showToast(t('chat_disabled_msg'));
+            if (meetingSettings.chat === 'disabled') return showToast(t('chat_disabled_msg'));
+
             let sent = false;
             Object.values(peers).forEach(p => {
                 if (p.data && p.data.open) { p.data.send({ type: 'chat', text }); sent = true; }
             });
 
-            if (sent) {
+            if (sent || Object.keys(peers).length > 0) {
                 appendMessage(text, 'me', localUserName);
                 ui.chatInput.value = '';
             } else showToast(t('wait_for_chat'));
@@ -937,57 +1182,214 @@
             ui.videoArea.classList.add('sm:pr-[380px]');
             activeSidebar = panel;
 
+            ui.chatContent.classList.add('hidden');
+            ui.participantsContent.classList.add('hidden');
+            ui.settingsContent.classList.add('hidden');
+
             if (panel === 'chat') {
                 ui.sidebarTitle.innerText = t('chat_title');
-                ui.chatContent.classList.remove('hidden'); ui.participantsContent.classList.add('hidden');
+                ui.chatContent.classList.remove('hidden');
                 unreadMessages = 0; ui.chatBadge.classList.add('hidden');
                 ui.chatMessages.scrollTop = ui.chatMessages.scrollHeight;
             } else if (panel === 'participants') {
                 const count = Object.keys(peers).length + 1;
                 ui.sidebarTitle.innerText = `${t('in_call')} (${count})`;
-                ui.participantsContent.classList.remove('hidden'); ui.chatContent.classList.add('hidden');
+                ui.participantsContent.classList.remove('hidden');
+                if (isHost) renderWaitingRoom();
+            } else if (panel === 'settings' && isHost) {
+                ui.sidebarTitle.innerText = t('host_controls');
+                ui.settingsContent.classList.remove('hidden');
+                ui.settingsContent.classList.add('flex');
             }
         }
 
         function closeSidebar() {
             ui.sidebar.classList.add('translate-x-full');
             ui.videoArea.classList.remove('sm:pr-[380px]');
-            setTimeout(() => { ui.chatContent.classList.add('hidden'); ui.participantsContent.classList.add('hidden'); }, 300);
+            setTimeout(() => { 
+                ui.chatContent.classList.add('hidden'); 
+                ui.participantsContent.classList.add('hidden'); 
+                ui.settingsContent.classList.add('hidden');
+                ui.settingsContent.classList.remove('flex');
+            }, 300);
             activeSidebar = null;
         }
 
+        // --- HOST CONTROLS IMPLEMENTATION ---
+        function broadcastHostCommand(command, payload = {}) {
+            Object.values(peers).forEach(p => {
+                if (p.data && p.data.open) p.data.send({ type: 'host-command', command, payload });
+            });
+        }
+        function sendHostCommand(targetId, command, payload = {}) {
+            const p = peers[targetId];
+            if (p && p.data && p.data.open) p.data.send({ type: 'host-command', command, payload });
+        }
+
+        function handleHostCommand(command, payload) {
+            if (command === 'force-mute') {
+                if (!isMicMuted) toggleMic();
+                showToast("Host muted your microphone");
+            } 
+            else if (command === 'force-video-off') {
+                if (!isCamOff) toggleVideo();
+                showToast("Host turned off your video");
+            }
+            else if (command === 'kick') {
+                showToast("You were removed by the host");
+                endCall();
+            }
+            else if (command === 'update-settings') {
+                meetingSettings = payload.settings;
+                applyMeetingSettings();
+            }
+        }
+
+        function applyMeetingSettings() {
+            // Screen Share Toggle Logic
+            if (!meetingSettings.screenShare && !isHost) {
+                if (isScreenSharing) stopScreenShare();
+                ui.btnScreen.classList.add('hidden');
+            } else {
+                ui.btnScreen.classList.remove('hidden');
+            }
+
+            // Chat Restrict Logic
+            const canChat = isHost || (meetingSettings.chat === 'all') || (meetingSettings.chat === 'host-only' && isHost);
+            if (!canChat) {
+                ui.chatInput.disabled = true;
+                ui.chatInput.placeholder = t('chat_disabled_msg');
+                ui.chatSubmit.disabled = true;
+            } else {
+                ui.chatInput.disabled = false;
+                ui.chatInput.placeholder = t('chat_placeholder');
+                ui.chatSubmit.disabled = false;
+            }
+        }
+
+        function updateHostSettings(key, value) {
+            if (!isHost) return;
+            meetingSettings[key] = value;
+            applyMeetingSettings();
+            broadcastHostCommand('update-settings', { settings: meetingSettings });
+            if (key === 'locked' && value) showToast("Meeting locked. No new joins allowed.");
+            if (key === 'waitingRoom' && value) showToast("Waiting room enabled.");
+        }
+
+        function renderWaitingRoom() {
+            if (!isHost) return;
+            const wqKeys = Object.keys(waitingQueue);
+            const wqSection = document.getElementById('waiting-room-section');
+            const wqList = document.getElementById('waiting-list');
+            document.getElementById('waiting-count').innerText = wqKeys.length;
+
+            if (wqKeys.length === 0) {
+                wqSection.classList.add('hidden');
+                wqSection.classList.remove('flex');
+                return;
+            }
+            wqSection.classList.remove('hidden');
+            wqSection.classList.add('flex');
+            
+            let html = '';
+            wqKeys.forEach(pid => {
+                const p = waitingQueue[pid];
+                html += `
+                <div class="flex items-center justify-between p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/20">
+                    <span class="text-white font-medium text-sm truncate pl-2">${p.name}</span>
+                    <div class="flex gap-2">
+                        <button onclick="denyGuest('${pid}')" class="text-rose-400 hover:text-rose-300 px-2 py-1 text-xs font-bold transition-colors">${t('deny')}</button>
+                        <button onclick="approveGuest('${pid}', '${p.name}')" class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded-md text-xs font-bold transition-colors">${t('admit')}</button>
+                    </div>
+                </div>`;
+            });
+            wqList.innerHTML = html;
+        }
+
+        function approveGuest(peerId, name, existingConn = null) {
+            const user = waitingQueue[peerId];
+            const conn = existingConn || (user ? user.conn : null);
+            if (conn) {
+                conn.send({ type: 'join-response', status: 'approved', settings: meetingSettings });
+                peers[peerId] = { name: name, data: conn };
+                setupDataConnEvents(conn);
+                
+                // Send mesh list to newly approved user
+                const existingPeers = Object.keys(peers).filter(p => p !== peerId);
+                if (existingPeers.length > 0) conn.send({ type: 'peer-list', list: existingPeers });
+            }
+            if (waitingQueue[peerId]) {
+                delete waitingQueue[peerId];
+                renderWaitingRoom();
+                updateParticipantsList();
+            }
+        }
+
+        function denyGuest(peerId) {
+            const user = waitingQueue[peerId];
+            if (user && user.conn) {
+                user.conn.send({ type: 'join-response', status: 'rejected', reason: 'denied' });
+                setTimeout(() => user.conn.close(), 500);
+            }
+            delete waitingQueue[peerId];
+            renderWaitingRoom();
+        }
+
         function updateParticipantsList() {
-            const isHost = (peer && peer.id === activeRoomId);
             const totalCount = Object.keys(peers).length + 1;
             
+            // Render Myself
             let html = `
                 <div class="flex items-center justify-between p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-gray-800 border border-white/5 shadow-sm">
                     <div class="flex items-center gap-2.5 sm:gap-3">
-                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-sm sm:text-base">
+                        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-sm sm:text-base relative">
                             ${localUserName ? localUserName.charAt(0).toUpperCase() : 'U'}
+                            ${myHandRaised ? '<div class="absolute -top-1 -right-1 bg-yellow-500 rounded-full w-3 h-3 border border-gray-800"></div>' : ''}
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-white font-bold text-[13px] sm:text-sm">${localUserName} (${t('you_label')})</span>
+                            <span class="text-white font-bold text-[13px] sm:text-sm flex items-center gap-2">
+                                ${localUserName} (${t('you_label')}) 
+                                ${myHandRaised ? '<i class="fas fa-hand-paper text-yellow-400 text-[10px]"></i>' : ''}
+                            </span>
                             <span class="text-indigo-400 text-[9px] sm:text-[10px] uppercase tracking-wider font-bold">${isHost ? t('meeting_host') : t('participant')}</span>
                         </div>
                     </div>
                 </div>
             `;
 
+            // Render Peers
             Object.keys(peers).forEach(pid => {
                 const pName = peers[pid].name || t('connecting');
                 const isPeerHost = (pid === activeRoomId);
+                const hasHand = raisedHands.has(pid);
+                
+                // Host Controls for this peer
+                let hostControlsHtml = '';
+                if (isHost && !isPeerHost) {
+                    hostControlsHtml = `
+                    <div class="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+                        <button onclick="sendHostCommand('${pid}', 'force-mute')" title="Mute Mic" class="w-6 h-6 rounded bg-gray-700 hover:bg-gray-600 text-slate-300 flex items-center justify-center"><i class="fas fa-microphone-slash text-[10px]"></i></button>
+                        <button onclick="sendHostCommand('${pid}', 'force-video-off')" title="Stop Video" class="w-6 h-6 rounded bg-gray-700 hover:bg-gray-600 text-slate-300 flex items-center justify-center"><i class="fas fa-video-slash text-[10px]"></i></button>
+                        <button onclick="sendHostCommand('${pid}', 'kick')" title="Remove" class="w-6 h-6 rounded bg-rose-500/20 hover:bg-rose-500 text-rose-400 hover:text-white flex items-center justify-center transition-colors"><i class="fas fa-sign-out-alt text-[10px]"></i></button>
+                    </div>`;
+                }
+
                 html += `
-                    <div class="flex items-center justify-between p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-gray-800/50 border border-transparent mt-2">
+                    <div class="flex items-center justify-between p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-gray-800/50 border border-transparent hover:border-white/5 group">
                         <div class="flex items-center gap-2.5 sm:gap-3">
-                            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg bg-gray-700 text-slate-300 flex items-center justify-center font-bold text-sm sm:text-base">
+                            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg bg-gray-700 text-slate-300 flex items-center justify-center font-bold text-sm sm:text-base relative">
                                 ${pName.charAt(0).toUpperCase()}
+                                ${hasHand ? '<div class="absolute -top-1 -right-1 bg-yellow-500 rounded-full w-3 h-3 border border-gray-800"></div>' : ''}
                             </div>
-                            <div class="flex flex-col">
-                                <span class="text-white font-bold text-[13px] sm:text-sm">${pName}</span>
+                            <div class="flex flex-col max-w-[120px]">
+                                <span class="text-white font-bold text-[13px] sm:text-sm truncate flex items-center gap-2">
+                                    ${pName}
+                                    ${hasHand ? '<i class="fas fa-hand-paper text-yellow-400 text-[10px]"></i>' : ''}
+                                </span>
                                 <span class="text-slate-500 text-[9px] sm:text-[10px] uppercase tracking-wider font-bold">${isPeerHost ? t('meeting_host') : t('participant')}</span>
                             </div>
                         </div>
+                        ${hostControlsHtml}
                     </div>
                 `;
             });
@@ -998,6 +1400,7 @@
             if (activeSidebar === 'participants') ui.sidebarTitle.innerText = `${t('in_call')} (${totalCount})`;
         }
 
+        // --- Core Lifecycle ---
         function endCall() {
             if (isScreenSharing) stopScreenShare();
             Object.values(peers).forEach(p => { if (p.data && p.data.open) p.data.send({ type: 'leaving' }); });
@@ -1008,6 +1411,9 @@
             
             ui.chatInput.disabled = true; ui.chatSubmit.disabled = true;
             document.getElementById('join-id-input').value = '';
+            ui.lobbyOverlay.classList.add('hidden');
+            ui.lobbyOverlay.classList.remove('flex');
+            myHandRaised = false; raisedHands.clear();
             
             try { if (window.location.protocol !== 'blob:') window.history.replaceState({}, document.title, window.location.pathname); } catch (e) {}
             
